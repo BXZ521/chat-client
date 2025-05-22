@@ -9,7 +9,7 @@ function App() {
 
   useEffect(() => {
     // Connect to the WebSocket backend
-    socketRef.current = new WebSocket('ws://localhost:5125/chat');
+    socketRef.current = new WebSocket('ws:192.168.137.1:5125/chat');
 
     socketRef.current.onopen = () => {
       console.log('Connected to chat server');

@@ -97,13 +97,13 @@
 }
 
 .input-message:focus {
-  border-color: #25D366;
+  border-color: #8ae1ff;
   box-shadow: 0 0 0 2px rgba(37, 211, 102, 0.3);
 }
 
 /* button */
 .button-send {
-  background-color: #25D366;
+  background-color: #8ae1ff;
   color: white;
   border: none;
   padding: 0.5rem 1rem;
@@ -116,7 +116,7 @@
 }
 
 .button-send:hover {
-  background-color: #1DA851;
+  background-color: #4fcffa;
 }
 
 .button-send:active {

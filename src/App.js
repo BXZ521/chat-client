@@ -6,11 +6,12 @@ function App() {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const socketRef = useRef(null);
-  const Author = "Tim";
+  const bottomRef = useRef(null);
+  const Author = "Ben";
 
   useEffect(() => {
     // Connect to the WebSocket backend
-    socketRef.current = new WebSocket('ws:192.168.120.86:5125/chat');
+    socketRef.current = new WebSocket('ws://localhost:5125/chat');
 
     socketRef.current.onopen = () => {
       console.log('Connected to chat server');
@@ -45,13 +46,17 @@ function App() {
     };
   }, []);
 
+   useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
+
   const sendMessage = () => {
     if (!input.trim()) return;
 
     const message = {
       Author: Author,
       Message: input,
-      TimeStamp: new Date().toDateString,
+      TimeStamp: new Date().toDateString(),
     };
 
     socketRef.current.send(JSON.stringify(message));
@@ -75,6 +80,7 @@ function App() {
             </div>
           </div>
         ))}
+        <div ref={bottomRef} /> {/* Auto-scroll anchor */}
       </div>
       
       <div className='message-container'>

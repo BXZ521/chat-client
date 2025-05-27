@@ -7,13 +7,15 @@ function App() {
   const [input, setInput] = useState('');
   const socketRef = useRef(null);
   const bottomRef = useRef(null);
-  const Author = "Ben";
+  const Author = "";
+  const connected = false;
 
   useEffect(() => {
     // Connect to the WebSocket backend
-    socketRef.current = new WebSocket('ws://localhost:5125/chat');
+    socketRef.current = new WebSocket('ws:192.168.120.86:5125/chat');
 
     socketRef.current.onopen = () => {
+      connected = true;
       console.log('Connected to chat server');
     };
 
@@ -23,26 +25,15 @@ function App() {
     };
 
     socketRef.current.onclose = () => {
+      connected = false;
       console.log('Disconnected from chat server');
 
       // folgendes ist temporär zum designen
       const data = [
-        { Author: 'Benji', Message: 'test1 tim', TimeStamp: '2025-05-05T15:07:31.4378781Z' },
-        { Author: Author, Message: 'Moin Benji. Es klappt!', TimeStamp: '2025-05-05T15:45:08.9841532Z' },
-        { Author: Author, Message: 'Moin Benji. Es klappt!', TimeStamp: '2025-05-05T15:45:08.9841532Z' },
-        { Author: Author, Message: 'Moin Benji. Es klappt!', TimeStamp: '2025-05-05T15:45:08.9841532Z' },
-        { Author: Author, Message: 'Moin Benji. Es klappt!', TimeStamp: '2025-05-05T15:45:08.9841532Z' },
-        { Author: Author, Message: 'Moin Benji. Es klappt!', TimeStamp: '2025-05-05T15:45:08.9841532Z' },
-        { Author: 'Benji', Message: 'test1 tim', TimeStamp: '2025-05-05T15:07:31.4378781Z' },
-        { Author: Author, Message: 'Moin Benji. Es klappt!', TimeStamp: '2025-05-05T15:45:08.9841532Z' },
-        { Author: Author, Message: 'Moin Benji. Es klappt!', TimeStamp: '2025-05-05T15:45:08.9841532Z' },
-        { Author: Author, Message: 'Moin Benji. Es klappt!', TimeStamp: '2025-05-05T15:45:08.9841532Z' },
-        { Author: Author, Message: 'Moin Benji. Es klappt!', TimeStamp: '2025-05-05T15:45:08.9841532Z' },
-        { Author: Author, Message: 'Moin Benji. Es klappt!', TimeStamp: '2025-05-05T15:45:08.9841532Z' },
-        { Author: Author, Message: 'Moin Benji. Es klappt!', TimeStamp: '2025-05-05T15:45:08.9841532Z' },
-        { Author: 'Benji', Message: 'test13', TimeStamp: '2025-05-05T17:00:50.2074785Z' }
+        { Author: 'Ben', Message: 'test1 tim', TimeStamp: '2025-05-05T15:07:31.4378781Z' },
+        { Author: Author, Message: 'Moin Ben. Es klappt!', TimeStamp: '2025-05-05T15:45:08.9841532Z' },
+        { Author: 'Ben', Message: 'test13', TimeStamp: '2025-05-05T17:00:50.2074785Z' }
       ];
-      console.log(data)
       setMessages(data);
     };
 
@@ -51,7 +42,7 @@ function App() {
     };
   }, []);
 
-   useEffect(() => {
+  useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
@@ -68,39 +59,59 @@ function App() {
     setInput('');
   };
 
-  return (
-    <div className='app'>
-      <h2>Chat</h2>
-      <div className='chat-box'>
-        {messages.map((msg, idx) => (
-          <div key={idx}>
-            <div className={`chat-message ${msg.Author === Author ? 'own' : 'other'}`}>
-              <div className="chat-bubble">
-                <div className="chat-meta">
-                  <div className="chat-author">{msg.Author}</div>
-                  <div className="chat-time">{msg.TimeStamp}</div>
+  if (connected) {
+    return (
+      <div className='app'>
+        <h2>Chat</h2>
+        <div className='chat-box'>
+          {messages.map((msg, idx) => (
+            <div key={idx}>
+              <div className={`chat-message ${msg.Author === Author ? 'own' : 'other'}`}>
+                <div className="chat-bubble">
+                  <div className="chat-meta">
+                    <div className="chat-author">{msg.Author}</div>
+                    <div className="chat-time">{formatTime(msg.TimeStamp)}</div>
+                  </div>
+                  <div className="chat-text">{msg.Message}</div>
                 </div>
-                <div className="chat-text">{msg.Message}</div>
               </div>
             </div>
-          </div>
-        ))}
-        <div ref={bottomRef} /> {/* Auto-scroll anchor */}
+          ))}
+          <div ref={bottomRef} /> {/* Auto-scroll anchor */}
+        </div>
+
+        <div className='message-container'>
+          <input
+            type="text"
+            value={input}
+            placeholder="Type a message..."
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
+            className='input-message'
+          />
+          <button onClick={sendMessage} className='button-send'><MdSend /></button>
+        </div>
       </div>
-      
-      <div className='message-container'>
-        <input
-          type="text"
-          value={input}
-          placeholder="Type a message..."
-          onChange={(e) => setInput(e.target.value)}
-          onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
-          className='input-message'
-        />
-        <button onClick={sendMessage} className='button-send'><MdSend /></button>
+    );
+  }
+  else {
+    return (
+      <div className='app'>
+        <h1>
+          Der Chat-Server ist nicht erreichbar!
+        </h1>
+        <p>Bitte laden Sie die Seite neu</p>
+        <p> Hilfe finden Sie unter: <a href="https://de.wikipedia.org/wiki/42_(Antwort)">Hilfe</a> </p>
       </div>
-    </div>
-  );
+    );
+  }
+}
+
+function formatTime(time) {
+  const year = time.substring(0, 4);
+  const month = time.substring(5, 7);
+  const day = time.substring(8, 10);
+  return '' + day + '.' + month + '.' + year;
 }
 
 export default App;

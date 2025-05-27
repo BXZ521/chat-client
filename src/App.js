@@ -5,17 +5,17 @@ import './Darkmode.css';
 function App() {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
+  const [connected, setConnected] = useState(false);
   const socketRef = useRef(null);
   const bottomRef = useRef(null);
   const Author = "";
-  const connected = false;
 
   useEffect(() => {
     // Connect to the WebSocket backend
-    socketRef.current = new WebSocket('ws:192.168.120.86:5125/chat');
+    socketRef.current = new WebSocket('ws:localhost:5125/chat');
 
     socketRef.current.onopen = () => {
-      connected = true;
+      setConnected(true);
       console.log('Connected to chat server');
     };
 
@@ -25,7 +25,7 @@ function App() {
     };
 
     socketRef.current.onclose = () => {
-      connected = false;
+      setConnected(false);
       console.log('Disconnected from chat server');
 
       // folgendes ist temporär zum designen
@@ -59,52 +59,51 @@ function App() {
     setInput('');
   };
 
-  if (connected) {
-    return (
-      <div className='app'>
-        <h2>Chat</h2>
-        <div className='chat-box'>
-          {messages.map((msg, idx) => (
-            <div key={idx}>
-              <div className={`chat-message ${msg.Author === Author ? 'own' : 'other'}`}>
-                <div className="chat-bubble">
-                  <div className="chat-meta">
-                    <div className="chat-author">{msg.Author}</div>
-                    <div className="chat-time">{formatTime(msg.TimeStamp)}</div>
+  return (
+    <div className='app'>
+      {connected ?
+        <div>
+          <h2>Chat</h2>
+          <div className='chat-box'>
+            {messages.map((msg, idx) => (
+              <div key={idx}>
+                <div className={`chat-message ${msg.Author === Author ? 'own' : 'other'}`}>
+                  <div className="chat-bubble">
+                    <div className="chat-meta">
+                      <div className="chat-author">{msg.Author}</div>
+                      <div className="chat-time">{formatTime(msg.TimeStamp)}</div>
+                    </div>
+                    <div className="chat-text">{msg.Message}</div>
                   </div>
-                  <div className="chat-text">{msg.Message}</div>
                 </div>
               </div>
-            </div>
-          ))}
-          <div ref={bottomRef} /> {/* Auto-scroll anchor */}
-        </div>
+            ))}
+            <div ref={bottomRef} /> {/* Auto-scroll anchor */}
+          </div>
 
-        <div className='message-container'>
-          <input
-            type="text"
-            value={input}
-            placeholder="Type a message..."
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
-            className='input-message'
-          />
-          <button onClick={sendMessage} className='button-send'><MdSend /></button>
+          <div className='message-container'>
+            <input
+              type="text"
+              value={input}
+              placeholder="Type a message..."
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
+              className='input-message'
+            />
+            <button onClick={sendMessage} className='button-send'><MdSend /></button>
+          </div>
         </div>
-      </div>
-    );
-  }
-  else {
-    return (
-      <div className='app'>
-        <h1>
-          Der Chat-Server ist nicht erreichbar!
-        </h1>
-        <p>Bitte laden Sie die Seite neu</p>
-        <p> Hilfe finden Sie unter: <a href="https://de.wikipedia.org/wiki/42_(Antwort)">Hilfe</a> </p>
-      </div>
-    );
-  }
+        :
+        <div>
+          <h1>
+            Der Chat-Server ist nicht erreichbar!
+          </h1>
+          <p>Bitte laden Sie die Seite neu</p>
+          <p> Hilfe finden Sie unter: <a href="https://de.wikipedia.org/wiki/42_(Antwort)">Hilfe</a> </p>
+        </div>
+      }
+    </div>
+  );
 }
 
 function formatTime(time) {

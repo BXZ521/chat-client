@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { MdSend } from 'react-icons/md';
-import './Darkmode.css';
+import './App.css';
 
 function App() {
   const [messages, setMessages] = useState([]);
@@ -8,7 +8,13 @@ function App() {
   const [connected, setConnected] = useState(false);
   const socketRef = useRef(null);
   const bottomRef = useRef(null);
+  const [darkMode, setDarkMode] = useState(false);
+  const toggleDarkMode = () => {
+  setDarkMode(prev => !prev);
+};
+
   const Author = "Ben";
+  
 
   useEffect(() => {
     // Connect to the WebSocket backend
@@ -52,11 +58,14 @@ function App() {
   };
 
   return (
-    <div className='app'>
+    <div className={`app ${darkMode ? 'dark' : 'light'}`}>
           {connected ?
             <div>
               <div className='header-bar'>
-              <h2>Chat</h2>
+                <h2>Chat</h2>
+                <button onClick={toggleDarkMode} className='toggle-theme-btn'>
+                  {darkMode ? '☀️ Light' : '🌙 Dark'}
+                </button>
               </div>
               <div className='chat-box'>
                 {messages.map((msg, idx) => (

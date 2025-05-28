@@ -1,23 +1,131 @@
-/*outer divs*/
+/* Basisstruktur */
 .app {
   padding: 2rem;
-  background-color: #ddd;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.header-bar{
+.header-bar {
   min-height: 2vh;
+  padding-top: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-/*chat history*/
-.chat-box {
+/* Lightmode */
+.app.light {
+  background-color: #ddd;
+  color: black;
+}
+
+.app.light .chat-box {
+  background-color: #fff;
   border: 1px solid #ccc;
+}
+
+.app.light .chat-message.own .chat-bubble {
+  background-color: #dcf8c6;
+  color: black;
+}
+
+.app.light .chat-message.other .chat-bubble {
+  background-color: #f0f0f0;
+  color: black;
+}
+
+.app.light .chat-author {
+  color: black;
+}
+
+.app.light .chat-time {
+  color: #aaaaaa;
+}
+
+.app.light .input-message {
+  background-color: white;
+  color: black;
+  border: 1px solid #ccc;
+}
+
+.app.light .input-message:focus {
+  border-color: #25D366;
+  box-shadow: 0 0 0 2px rgba(37, 211, 102, 0.2);
+}
+
+.app.light .message-container {
+  background-color: transparent;
+}
+
+.app.light .button-send {
+  background-color: #25D366;
+}
+
+.app.light .button-send:hover {
+  background-color: #1DA851;
+}
+
+
+/* Darkmode */
+.app.dark {
+  background-color: #1e1e1e;
+  color: #f0f0f0;
+}
+
+.app.dark .chat-box {
+  background-color: #2a2a2a;
+  border: 1px solid #444;
+}
+
+.app.dark .chat-message.own .chat-bubble {
+  background-color: #056162;
+  color: #e0ffe5;
+}
+
+.app.dark .chat-message.other .chat-bubble {
+  background-color: #3a3a3a;
+  color: #e0e0e0;
+}
+
+.app.dark .chat-author {
+  color: #8ae1ff;
+}
+
+.app.dark .chat-time {
+  color: #999;
+}
+
+.app.dark .input-message {
+  background-color: #333;
+  color: #fff;
+  border: 1px solid #555;
+}
+
+.app.dark .input-message:focus {
+  border-color: #8ae1ff;
+  box-shadow: 0 0 0 2px rgba(37, 211, 102, 0.3);
+}
+
+.app.dark .message-container {
+  background-color: #1e1e1e;
+}
+
+.app.dark .button-send {
+  background-color: #8ae1ff;
+}
+
+.app.dark .button-send:hover {
+  background-color: #4fcffa;
+}
+
+
+/* Allgemein – chat bubbles */
+.chat-box {
   overflow-y: auto;
   padding: 1rem;
   max-height: 80vh;
-  background-color: #fff;
   flex: 1;
   scroll-behavior: smooth;
 }
@@ -44,18 +152,6 @@
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-.chat-message.own .chat-bubble {
-  background-color: #dcf8c6; /* WhatsApp-Grün */
-  border-radius: 15px 15px 0 15px;
-  text-align: left;
-}
-
-.chat-message.other .chat-bubble {
-  background-color: #f0f0f0; /* Hellgrau für empfangen */
-  border-radius: 15px 15px 15px 0;
-  text-align: left;
-}
-
 .chat-meta {
   display: flex;
   gap: 8px;
@@ -67,47 +163,36 @@
 }
 
 .chat-time {
-  color: #aaaaaa;
   font-size: 12px;
 }
 
-/*user input divs*/
+/* Eingabe & Button */
 .message-container {
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;  /* Vertikale Ausrichtung am unteren Rand */
+  align-items: flex-end;
   position: sticky;
-  bottom: 1rem;            /* Hält den Inputbereich immer am unteren Rand */
-  background-color: none;  /* Hintergrundfarbe für den Inputbereich */
-  z-index: 10;          /* Sicherstellen, dass es über den Nachrichten liegt */
+  bottom: 1rem;
+  z-index: 10;
 }
 
-/*input*/
 .input-message {
   width: 100%;
   padding: 0.5rem 1rem;
-  border: 1px solid #ccc;
-  border-radius: 999px;              /* Pillenform wie WhatsApp */
+  border-radius: 999px;
   font-size: 14px;
   outline: none;
-  transition: border 0.2s ease, box-shadow 0.2s ease;
   font-family: sans-serif;
   margin-top: 0.5rem;
   box-sizing: border-box;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
 }
 
-.input-message:focus {
-  border-color: #25D366;
-  box-shadow: 0 0 0 2px rgba(37, 211, 102, 0.2); /* leichter grüner Glow */
-}
-
-/*button*/
 .button-send {
-  background-color: #25D366;      /* WhatsApp-Grün */
   color: white;
   border: none;
   padding: 0.5rem 1rem;
-  border-radius: 999px;           /* Voll abgerundet (Pill-Form) */
+  border-radius: 999px;
   font-size: 14px;
   font-weight: bold;
   cursor: pointer;
@@ -115,10 +200,22 @@
   transition: background-color 0.2s ease, transform 0.1s ease;
 }
 
-.button-send:hover {
-  background-color: #1DA851;      /* Etwas dunkler beim Hover */
+.button-send:active {
+  transform: scale(0.9);
 }
 
-.button-send:active {
-  transform: scale(0.9);         /* Kleines Feedback beim Klicken */
+/* Theme Toggle Button */
+.toggle-theme-btn {
+  background: none;
+  border: 1px solid transparent;
+  padding: 0.25rem 0.75rem;
+  font-size: 1rem;
+  cursor: pointer;
+  color: inherit;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.toggle-theme-btn:hover {
+  background-color: rgba(0, 0, 0, 0.05);
 }

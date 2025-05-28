@@ -27,14 +27,6 @@ function App() {
     socketRef.current.onclose = () => {
       setConnected(false);
       console.log('Disconnected from chat server');
-
-      // folgendes ist temporär zum designen
-      const data = [
-        { Author: 'Ben', Message: 'test1 tim', TimeStamp: '2025-05-05T15:07:31.4378781Z' },
-        { Author: Author, Message: 'Moin Ben. Es klappt!', TimeStamp: '2025-05-05T15:45:08.9841532Z' },
-        { Author: 'Ben', Message: 'test13', TimeStamp: '2025-05-05T17:00:50.2074785Z' }
-      ];
-      setMessages(data);
     };
 
     return () => {
@@ -61,45 +53,45 @@ function App() {
 
   return (
     <div className='app'>
-      {connected ?
-        <div>
-          <h2>Chat</h2>
-          <div className='chat-box'>
-            {messages.map((msg, idx) => (
-              <div key={idx}>
-                <div className={`chat-message ${msg.Author === Author ? 'own' : 'other'}`}>
-                  <div className="chat-bubble">
-                    <div className="chat-meta">
-                      <div className="chat-author">{msg.Author}</div>
-                      <div className="chat-time">{formatTime(msg.TimeStamp)}</div>
+          {connected ?
+            <div>
+              <h2>Chat</h2>
+              <div className='chat-box'>
+                {messages.map((msg, idx) => (
+                  <div key={idx}>
+                    <div className={`chat-message ${msg.Author === Author ? 'own' : 'other'}`}>
+                      <div className="chat-bubble">
+                        <div className="chat-meta">
+                          <div className="chat-author">{msg.Author}</div>
+                          <div className="chat-time">{formatTime(msg.TimeStamp)}</div>
+                        </div>
+                        <div className="chat-text">{msg.Message}</div>
+                      </div>
                     </div>
-                    <div className="chat-text">{msg.Message}</div>
                   </div>
-                </div>
+                ))}
+                <div ref={bottomRef} /> {/* Auto-scroll anchor */}
               </div>
-            ))}
-            <div ref={bottomRef} /> {/* Auto-scroll anchor */}
-          </div>
 
-          <div className='message-container'>
-            <input
-              type="text"
-              value={input}
-              placeholder="Type a message..."
-              onChange={(e) => setInput(e.target.value)}
-              onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
-              className='input-message'
-            />
-            <button onClick={sendMessage} className='button-send'><MdSend /></button>
-          </div>
-        </div>
-        :
-        <div>
-          <h1>
-            Der Chat-Server ist nicht erreichbar!
-          </h1>
-          <p>Bitte laden Sie die Seite neu</p>
-          <p> Hilfe finden Sie unter: <a href="https://de.wikipedia.org/wiki/42_(Antwort)">Hilfe</a> </p>
+              <div className='message-container'>
+                <input
+                  type="text"
+                  value={input}
+                  placeholder="Type a message..."
+                  onChange={(e) => setInput(e.target.value)}
+                  onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
+                  className='input-message'
+                />
+                <button onClick={sendMessage} className='button-send'><MdSend /></button>
+              </div>
+            </div>
+            :
+            <div>
+              <h1>
+                Der Chat-Server ist nicht erreichbar!
+              </h1>
+              <p>Bitte starten Sie den Server neu oder laden Sie die Seite neu </p>
+              <p> Hilfe finden Sie unter: <a href="https://de.wikipedia.org/wiki/42_(Antwort)">Hilfe</a> </p>
         </div>
       }
     </div>

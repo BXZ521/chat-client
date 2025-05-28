@@ -76,10 +76,10 @@ function App() {
                   <button onClick={toggleDarkMode} className='toggle-theme-btn'>
                     {darkMode ? '☀️ Light' : '🌙 Dark'}
                   </button>
-                  <button className='toggle-theme-btn' onClick={() => alert('Noch keine Funktion')}>
+                  <button className='toggle-theme-btn' onClick={() => alert('Noch keine Funktion!')}>
                     ⚙️ Einstellungen
                   </button>
-                  <button className='toggle-theme-btn' onClick={() => alert('Noch keine Funktion')}>
+                  <button className='toggle-theme-btn' onClick={() => alert('Noch keine Funktion!')}>
                     👤 Profil
                   </button>
                 </div>

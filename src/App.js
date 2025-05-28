@@ -8,10 +8,15 @@ function App() {
   const [connected, setConnected] = useState(false);
   const socketRef = useRef(null);
   const bottomRef = useRef(null);
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(() => {
+    const saved = localStorage.getItem('darkMode');
+   if (saved !== null) return saved === 'true';
+   return window.matchMedia('(prefers-color-scheme: dark)').matches;
+  });
+
   const toggleDarkMode = () => {
-  setDarkMode(prev => !prev);
-};
+    setDarkMode(prev => !prev);
+  };
 
   const Author = "Ben";
   
@@ -44,6 +49,10 @@ function App() {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
+  useEffect(() => {
+  localStorage.setItem('darkMode', darkMode);
+}, [darkMode]);
+
   const sendMessage = () => {
     if (!input.trim()) return;
 
@@ -63,9 +72,17 @@ function App() {
             <div>
               <div className='header-bar'>
                 <h2>Chat</h2>
-                <button onClick={toggleDarkMode} className='toggle-theme-btn'>
-                  {darkMode ? '☀️ Light' : '🌙 Dark'}
-                </button>
+                <div className='header-buttons'>
+                  <button onClick={toggleDarkMode} className='toggle-theme-btn'>
+                    {darkMode ? '☀️ Light' : '🌙 Dark'}
+                  </button>
+                  <button className='toggle-theme-btn' onClick={() => alert('Noch keine Funktion')}>
+                    ⚙️ Einstellungen
+                  </button>
+                  <button className='toggle-theme-btn' onClick={() => alert('Noch keine Funktion')}>
+                    👤 Profil
+                  </button>
+                </div>
               </div>
               <div className='chat-box'>
                 {messages.map((msg, idx) => (

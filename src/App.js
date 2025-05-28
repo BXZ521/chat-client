@@ -79,7 +79,7 @@ function App() {
                   <button className='toggle-theme-btn' onClick={() => alert('Noch keine Funktion!')}>
                     ⚙️ Einstellungen
                   </button>
-                  <button className='toggle-theme-btn' onClick={() => alert('Noch keine Funktion!')}>
+                  <button className='toggle-theme-btn' onClick={() => alert(`Profil von ${Author}`)}>
                     👤 Profil
                   </button>
                 </div>
@@ -130,7 +130,8 @@ function formatTime(time) {
   const year = time.substring(0, 4);
   const month = time.substring(5, 7);
   const day = time.substring(8, 10);
-  return '' + day + '.' + month + '.' + year;
+  const clocktime = time.substring(11,16);
+  return '' + day + '.' + month + '.' + year + ' ' + clocktime;
 }
 
 export default App;

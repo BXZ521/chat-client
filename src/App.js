@@ -8,7 +8,7 @@ function App() {
   const [connected, setConnected] = useState(false);
   const socketRef = useRef(null);
   const bottomRef = useRef(null);
-  const Author = "";
+  const Author = "Ben";
 
   useEffect(() => {
     // Connect to the WebSocket backend
@@ -55,7 +55,9 @@ function App() {
     <div className='app'>
           {connected ?
             <div>
+              <div className='header-bar'>
               <h2>Chat</h2>
+              </div>
               <div className='chat-box'>
                 {messages.map((msg, idx) => (
                   <div key={idx}>

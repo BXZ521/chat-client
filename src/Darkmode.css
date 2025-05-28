@@ -2,7 +2,7 @@
 .app {
   padding: 2rem;
   background-color: #1e1e1e;
-  max-height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   color: #f0f0f0;

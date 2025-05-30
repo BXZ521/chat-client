@@ -167,6 +167,10 @@
   font-size: 12px;
 }
 
+.chat-text {
+  word-break: break-word;
+}
+
 /* Eingabe & Button */
 .message-container {
   display: flex;

@@ -23,7 +23,7 @@ function App() {
 
   useEffect(() => {
     // Connect to the WebSocket backend
-    socketRef.current = new WebSocket('ws:192.168.229.86:5125/chat');
+    socketRef.current = new WebSocket('ws:localhost:5125/chat');
 
     socketRef.current.onopen = () => {
       setConnected(true);
@@ -120,6 +120,16 @@ function App() {
           </h1>
           <p>Bitte starten Sie den Server neu oder laden Sie die Seite neu </p>
           <p> Die Antwort auf Ihre Probleme finden Sie unter: <a href="https://de.wikipedia.org/wiki/42_(Antwort)">Antwort</a> </p>
+          <div className='dino-game-container'>
+            <iframe
+              src="https://chromedino.com/"
+              title="Chrome Dino Game"
+              width="100%"
+              height="100%"
+              loading="lazy"
+              style={{ display: 'block' }}
+            ></iframe>
+          </div>
         </div>
       }
     </div>

@@ -18,7 +18,7 @@ function App() {
     setDarkMode(prev => !prev);
   };
 
-  const Author = "Ben";
+  const Author = "Tim";
   
 
   useEffect(() => {
@@ -59,7 +59,7 @@ function App() {
     const message = {
       Author: Author,
       Message: input,
-      TimeStamp: new Date().toDateString(),
+      TimeStamp: new Date().toDateString(), // redundant
     };
 
     socketRef.current.send(JSON.stringify(message));
@@ -119,7 +119,7 @@ function App() {
                 Der Chat-Server ist nicht erreichbar!
               </h1>
               <p>Bitte starten Sie den Server neu oder laden Sie die Seite neu </p>
-              <p> Hilfe finden Sie unter: <a href="https://de.wikipedia.org/wiki/42_(Antwort)">Hilfe</a> </p>
+              <p> Die Antwort auf Ihre Probleme finden Sie unter: <a href="https://de.wikipedia.org/wiki/42_(Antwort)">Antwort</a> </p>
         </div>
       }
     </div>

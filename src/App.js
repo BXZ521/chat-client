@@ -10,8 +10,8 @@ function App() {
   const bottomRef = useRef(null);
   const [darkMode, setDarkMode] = useState(() => {
     const saved = localStorage.getItem('darkMode');
-   if (saved !== null) return saved === 'true';
-   return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (saved !== null) return saved === 'true';
+    return window.matchMedia('(prefers-color-scheme: dark)').matches;
   });
 
   const toggleDarkMode = () => {
@@ -19,11 +19,11 @@ function App() {
   };
 
   const Author = "Tim";
-  
+
 
   useEffect(() => {
     // Connect to the WebSocket backend
-    socketRef.current = new WebSocket('ws:localhost:5125/chat');
+    socketRef.current = new WebSocket('ws:192.168.229.86:5125/chat');
 
     socketRef.current.onopen = () => {
       setConnected(true);
@@ -50,8 +50,8 @@ function App() {
   }, [messages]);
 
   useEffect(() => {
-  localStorage.setItem('darkMode', darkMode);
-}, [darkMode]);
+    localStorage.setItem('darkMode', darkMode);
+  }, [darkMode]);
 
   const sendMessage = () => {
     if (!input.trim()) return;
@@ -68,58 +68,58 @@ function App() {
 
   return (
     <div className={`app ${darkMode ? 'dark' : 'light'}`}>
-          {connected ?
-            <div>
-              <div className='header-bar'>
-                <h2>Chat</h2>
-                <div className='header-buttons'>
-                  <button onClick={toggleDarkMode} className='toggle-theme-btn'>
-                    {darkMode ? '☀️ Light' : '🌙 Dark'}
-                  </button>
-                  <button className='toggle-theme-btn' onClick={() => alert('Noch keine Funktion!')}>
-                    ⚙️ Einstellungen
-                  </button>
-                  <button className='toggle-theme-btn' onClick={() => alert(`Profil von ${Author}`)}>
-                    👤 Profil
-                  </button>
+      {connected ?
+        <div>
+          <div className='header-bar'>
+            <h2>Chat</h2>
+            <div className='header-buttons'>
+              <button onClick={toggleDarkMode} className='toggle-theme-btn'>
+                {darkMode ? '☀️ Light' : '🌙 Dark'}
+              </button>
+              <button className='toggle-theme-btn' onClick={() => alert('Noch keine Funktion!')}>
+                ⚙️ Einstellungen
+              </button>
+              <button className='toggle-theme-btn' onClick={() => alert(`Profil von ${Author}`)}>
+                👤 Profil
+              </button>
+            </div>
+          </div>
+          <div className='chat-box'>
+            {messages.map((msg, idx) => (
+              <div key={idx}>
+                <div className={`chat-message ${msg.Author === Author ? 'own' : 'other'}`}>
+                  <div className="chat-bubble">
+                    <div className="chat-meta">
+                      <div className="chat-author">{msg.Author}</div>
+                      <div className="chat-time">{formatTime(msg.TimeStamp)}</div>
+                    </div>
+                    <div className="chat-text"> {msg.Message}</div>
+                  </div>
                 </div>
               </div>
-              <div className='chat-box'>
-                {messages.map((msg, idx) => (
-                  <div key={idx}>
-                    <div className={`chat-message ${msg.Author === Author ? 'own' : 'other'}`}>
-                      <div className="chat-bubble">
-                        <div className="chat-meta">
-                          <div className="chat-author">{msg.Author}</div>
-                          <div className="chat-time">{formatTime(msg.TimeStamp)}</div>
-                        </div>
-                        <div className="chat-text">{msg.Message}</div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-                <div ref={bottomRef} /> {/* Auto-scroll anchor */}
-              </div>
+            ))}
+            <div ref={bottomRef} /> {/* Auto-scroll anchor */}
+          </div>
 
-              <div className='message-container'>
-                <input
-                  type="text"
-                  value={input}
-                  placeholder="Type a message..."
-                  onChange={(e) => setInput(e.target.value)}
-                  onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
-                  className='input-message'
-                />
-                <button onClick={sendMessage} className='button-send'><MdSend /></button>
-              </div>
-            </div>
-            :
-            <div>
-              <h1>
-                Der Chat-Server ist nicht erreichbar!
-              </h1>
-              <p>Bitte starten Sie den Server neu oder laden Sie die Seite neu </p>
-              <p> Die Antwort auf Ihre Probleme finden Sie unter: <a href="https://de.wikipedia.org/wiki/42_(Antwort)">Antwort</a> </p>
+          <div className='message-container'>
+            <input
+              type="text"
+              value={input}
+              placeholder="Type a message..."
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
+              className='input-message'
+            />
+            <button onClick={sendMessage} className='button-send'><MdSend /></button>
+          </div>
+        </div>
+        :
+        <div className='error-container'>
+          <h1>
+            Der Chat-Server ist nicht erreichbar!
+          </h1>
+          <p>Bitte starten Sie den Server neu oder laden Sie die Seite neu </p>
+          <p> Die Antwort auf Ihre Probleme finden Sie unter: <a href="https://de.wikipedia.org/wiki/42_(Antwort)">Antwort</a> </p>
         </div>
       }
     </div>
@@ -130,7 +130,7 @@ function formatTime(time) {
   const year = time.substring(0, 4);
   const month = time.substring(5, 7);
   const day = time.substring(8, 10);
-  const clocktime = time.substring(11,16);
+  const clocktime = time.substring(11, 16);
   return '' + day + '.' + month + '.' + year + ' ' + clocktime;
 }
 

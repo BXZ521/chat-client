@@ -225,3 +225,7 @@
 .toggle-theme-btn:hover {
   background-color: rgba(0, 0, 0, 0.05);
 }
+
+.error-container{
+  padding-top: 2rem;
+}

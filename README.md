@@ -1,70 +1,179 @@
-# Getting Started with Create React App
+# Links zu den Git-Repositorys
+- Frontend: [https://github.com/BXZ521/chat-client](https://github.com/BXZ521/chat-client)
+- Backend: [https://github.com/BXZ521/FHDW-CHAT-Backend](https://github.com/BXZ521/FHDW-CHAT-Backend)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Projektbeschreibung Chat-System
+ 
+## Gruppenmitglieder:
+Benjamin A. Schmitz,
+Tim L. Stöcker
+ 
+## Idee
+Unsere Projektidee ist die Entwicklung eines Chat-Systems, bei dem mehrere Clients über einen zentralen Server miteinander kommunizieren können. Dabei entsteht eine einfache, textbasierte Web-Applikation, die es ermöglicht, in Echtzeit Nachrichten zwischen verschiedenen Teilnehmern auszutauschen.
+ 
+## Mehrwert
+- Echtzeit-Kommunikation zwischen mehreren Nutzern
+- Verständnis und Anwendung moderner Webarchitekturen mit einer Web-API
+- Privater Chat
+- Skalierbar
+- Eigenständige und individuelle Weiterentwickelung
+- Dadurch freie und günstige Customization
+ 
+## Anforderungen
+### Funktionale Anforderungen
+- Aufbau einer Verbindung zwischen Client und Server
+- Senden und Empfangen von Nachrichten in Echtzeit
+- Automatische Aktualisierung des Chats in allen verbundenen Browsern ohne manuelles Neuladen
+- Darstellung der Nachrichten in chronologischer Reihenfolge
+- Darstellung des Benutzernamen
+ 
+### Nicht-funktionale Anforderungen
+- Stabiler Serverbetrieb
+- Gute Performance bei mehreren gleichzeitigen Nutzern
+- Intuitive und benutzerfreundliche Oberfläche
+- Erweiterbarkeit für zukünftige Features
+- Kostengünstiger Betrieb des Systems
+ 
+### Mögliche Erweiterungen (Nice to have) ??? todo
+- Anzeige von Profilbild, Nickname und ggf. Online-Status
+- Dark Mode / Theme-Switcher
+- Chatverlauf speichern (z.B. JSON, SQLite, MySQL)
+- Upload und Versand von versschiedenen Dateiformaten (z.B. PDFs, Bilder)
+- Direkte Anzeige hochgeladener oder verlinkter Bilder im Chatverlauf
+- integrierung von kleinen Spielen, Features oder einem Chatbot (z.B. mittels ChatGPT)
+- Emoji-Unterstützung via Picker
+- Nachrichten bearbeiten/löschen
+- Push Notifications bei neuen Nachrichten
+- Mobile-optimiertes Design (Responsive Webdesign)
+ 
+## Zusammenhang zur Aufgabenstellung ??? todo
+Die Idee entspricht der Anforderung, eine Web-Applikation mit Client-Server-Kommunikation zu entwickeln. Der Fokus liegt auf der Interaktion zwischen mehreren Clients über einen zentralen Server - ein typisches Beispiel für moderne, verteilte Web-Systeme.
+ 
+## Eingesetzte Technologien todo: Warum haben wir uns dafür entschieden
+- **Frontend (Client)**: React, JavaScript
+- **API-Kommunikation**: Websockets
+- **Backend (Server)**: C#, .NET Core
+- **Datenübertragung**: Websockets für Basisfunktionen und Echtzeitübertragung von Nachrichten
+- **Dateihandling**: ggf. `cURL` für Datei-Uploads
+- **Speichern des Chatverlaufs**: JSON-Format in einer Log-Datei
+- **Versionsverwaltung & Doku**: Git & GitHub (inkl. Markdown-Doku)
 
-## Available Scripts
+# Frontend
 
-In the project directory, you can run:
+## Installationsanweisungen
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) todo
+### App erstellen
+- Ziel-Verzeichnis festlegen
+- nodeJS herunterladen und installieren von [https://nodejs.org/en](https://nodejs.org/en)
+- Folgendes im Verzeichnis ausführen:
+	- Projekt clonen `git clone https://github.com/BXZ521/chat-client`
+	- Abhängigkeien installieren `npm i`
+	- Icons importieren `npm install react-icons`
+	- auf den aktuellen Branch wechseln `git checkout tist_frontend`
+	- aktuellen Stand pullen `git pull`
+- eingetragene IP Adresse im Frontend prüfen. Es sollte die sein, auf die das der Server hört. (mittels `ipconfig` in der cmd kann die IP des eigenen Gerätes angezeigt werden)
+### App starten
+- App im Entwicklermodus starten `npm start`
+- Läuft im Browser unter der URL: [http://localhost:3000](http://localhost:3000)
 
-### `npm start`
+## Beschreibung der Architektur
+### App.js
+- Websockets
+- Elemente (CSS in der App.css bzw. Darkmode.css)
+- function formatTime
+### App.css
+- Style für alle Elemente
+- leicht anpassbar
+### Darkmode.css
+- Wie App.css nur mit dunkleren Farben
+### index.js
+- definiert das root-element
+- verwendet <Strictmode> um Fehler frühzeitig zu entdecken
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Versionen
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
+# Backend
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Installationsanweisungen
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Beschreibung der Architektur
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Versionen
 
-### `npm run eject`
+# Lokales Netzwerk aufsetzen
+1. Hotspot eines beliebigen Gerätes öffnen
+2. Frontend- und Backend-Geräte mit diesem Netzwerk verbinden
+3. Die IPv4-Adresse dieses Netzwerks herausfinden (cmd: `ipconfig`)
+4. Diese IPv4 an den entsprechenden Stellen im Frontend und Backend anpassen
+5. Frontend und Backend starten und testen
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+# Bedienungsanleitung
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Start in die App
+Zunächst muss der Chat im Browser unter der URL: [http://localhost:3000](http://localhost:3000) aufgerufen werden.
+Wenn das Frontend das Backend nicht erreichen kann wird eine entsprechende Meldung angezeigt. 
+In diesem Fall muss das Frontend oder das Backend neu gestartet werden.
+Wenn die Verbindung erfolgreich ist, wird automatisch der bisherige Chatverlauf geladen und angezeigt.
+Anschließend kann am unteren Fensterrand eine neue Nachricht eingegeben werden und mit dem Button rechts daneben oder mit der Enter-Taste abgesendet werden.
+Die Nachricht wird in Echtzeit an alle angebundenen Clients übertragen und angezeigt.  
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Informationen einer Nachricht
+Jede angezeigte Nachricht enthält folgende Informationen:
+- Autor (links oben)
+- Zeitstempel (rechts oben)
+- Inhalt der Nachricht (zentral)
+Selbstverfasste Nachrichten werden rechtsbündig und alle anderen linksbündig dargestellt.
+Der Chat erinnert damit an das design und Verhalten von WhatsApp.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Menuleiste oben
+Am oberen Rand des Fensters befindet sich eine Menuleiste.
+Dort liegen sich von links nach rechts:
+- Ein Button, mit dem vom Light- in den Darkmode und zurück gewechselt werden kann. Der eingestellte Mode bleibt beim Neuladen der Seite bestehen.
+Solange kein Mode ausgewählt wurde, wird der aktuell verwendete Mode von Windows übernommen.
+- Ein Button ohne Funktion, mit dem zukünftig die Einstellungen der App angepasst werden können.
+- Ein Button ohne Funktion, mit dem zukünftig das Benutzer-Profil bearbeitet werden kann.
+Desweiteren besteht dort die Möglichkeit einige der oben genannten Erweiterungen und Weiterführende zu integrieren.
 
-## Learn More
+# Entwicklungsprozess
+## Arbeit mit Github und Absprache
+## Begin mit Backend
+## Testen verschiedener Technologien, warum haben wir diese verwendet?
+### REST API -> Websockets
+### Flutter -> React
+### Internet -> LAN-Hotspot
+## Chat-Design
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+# Herausforderungen
+- REST API genügt nicht
+- Networking mehrere Clients auf verschiedenen Geräten
+- Einarbeitung in die verwendeten Technologien
+- Anwendungsprobleme mit Github
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+# Erfolgsfaktoren
+- Frag die KI
+- Viel Einarbeiten und Recherchieren
+- Verwendung von Websockets
+- Erstellen eines lokalen Netzwerks
+- Github alternative
 
-### Code Splitting
+# Aufgabenverteilung innerhalb des Entwicklerteams
+## Frontend
+##Backend
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### Analyzing the Bundle Size
+# Geplante Erweiterungen. 
+- Emoji-Unterstützung via Picker
+- Nachrichten bearbeiten/löschen
+- Minigames wie Tetris
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+# Mögliche Erweiterungen
+- Online-Status
+- Profilbild, Nickname
+- Upload und Versand von verschiedenen Dateiformaten (z.B. PDFs, Bilder)
+- Schach App
+- Accounts mit Login
+- Alternatives speichern des Chatverlaufs (verschlüsselt)
+- KI-Chat

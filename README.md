@@ -1,12 +1,12 @@
 # Links zu den Git-Repositorys
-- Frontend: [https://github.com/BXZ521/chat-client](https://github.com/BXZ521/chat-client)
-- Backend: [https://github.com/BXZ521/FHDW-CHAT-Backend](https://github.com/BXZ521/FHDW-CHAT-Backend)
+- Frontend (Chat-Client): [https://github.com/BXZ521/chat-client](https://github.com/BXZ521/chat-client)
+- Backend (Chat-Server): [https://github.com/BXZ521/FHDW-CHAT-Backend](https://github.com/BXZ521/FHDW-CHAT-Backend)
 
 # Projektbeschreibung Chat-System
  
 ## Gruppenmitglieder:
-Benjamin A. Schmitz,
-Tim L. Stöcker
+- Benjamin Alexander Schmitz
+- Tim Luka Stöcker
  
 ## Idee
 Unsere Projektidee ist die Entwicklung eines Chat-Systems, bei dem mehrere Clients über einen zentralen Server miteinander kommunizieren können. Dabei entsteht eine einfache, textbasierte Web-Applikation, die es ermöglicht, in Echtzeit Nachrichten zwischen verschiedenen Teilnehmern auszutauschen.
@@ -34,22 +34,20 @@ Unsere Projektidee ist die Entwicklung eines Chat-Systems, bei dem mehrere Clien
 - Erweiterbarkeit für zukünftige Features
 - Kostengünstiger Betrieb des Systems
  
-### Mögliche Erweiterungen (Nice to have) ??? todo
-- Anzeige von Profilbild, Nickname und ggf. Online-Status
-- Dark Mode / Theme-Switcher
-- Chatverlauf speichern (z.B. JSON, SQLite, MySQL)
+### Mögliche Erweiterungen (Nice to have)
+- Anzeige von Profilbild und ggf. Online-Status
+- Chatverlauf speichern (z.B. SQLite, MySQL)
 - Upload und Versand von versschiedenen Dateiformaten (z.B. PDFs, Bilder)
 - Direkte Anzeige hochgeladener oder verlinkter Bilder im Chatverlauf
 - integrierung von kleinen Spielen, Features oder einem Chatbot (z.B. mittels ChatGPT)
 - Emoji-Unterstützung via Picker
 - Nachrichten bearbeiten/löschen
 - Push Notifications bei neuen Nachrichten
-- Mobile-optimiertes Design (Responsive Webdesign)
  
-## Zusammenhang zur Aufgabenstellung ??? todo
+## Zusammenhang zur Aufgabenstellung todo (der Satz hört sich komisch an)
 Die Idee entspricht der Anforderung, eine Web-Applikation mit Client-Server-Kommunikation zu entwickeln. Der Fokus liegt auf der Interaktion zwischen mehreren Clients über einen zentralen Server - ein typisches Beispiel für moderne, verteilte Web-Systeme.
  
-## Eingesetzte Technologien todo: Warum haben wir uns dafür entschieden
+## Eingesetzte Technologien
 - **Frontend (Client)**: React, JavaScript
 - **API-Kommunikation**: Websockets
 - **Backend (Server)**: C#, .NET Core
@@ -61,9 +59,9 @@ Die Idee entspricht der Anforderung, eine Web-Applikation mit Client-Server-Komm
 # Frontend
 
 ## Installationsanweisungen
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) todo
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) todo (relevant?)
 ### App erstellen
-- Ziel-Verzeichnis festlegen
+- Ziel-Verzeichnis auf dem lokalen Gerät festlegen
 - nodeJS herunterladen und installieren von [https://nodejs.org/en](https://nodejs.org/en)
 - Folgendes im Verzeichnis ausführen:
 	- Projekt clonen `git clone https://github.com/BXZ521/chat-client`
@@ -76,7 +74,13 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 - App im Entwicklermodus starten `npm start`
 - Läuft im Browser unter der URL: [http://localhost:3000](http://localhost:3000)
 
+## Beschreibung der Technologie
+Für das Frontend unserer Web-App müssen wir eine Programmiersprache und ein Framework auswählen. Zum einen wollten wir etwas vertrautes benutzen, damit wir schneller Code schreiben und verstehen können. Zum anderen wollten wir eine weitverbreitete Technologie verwenden, da es dazu große Communities und Dokumentationen gibt. Das in der Vorlesung vorgestellte Framework Flutter war neu für uns und wir hatten beide Schwierigkeiten mit dem Verständnis der Syntax. Daher entschieden wir uns gegen die Verwendung von Flutter. Letztendlich entschieden wir uns für die Programmiersprache JavaScript in Kombination mit der Bibliothek und Framework React. In JavaScript waren wir beide bereits geübt und React war neu für uns. Da wir beide ein Interesse hatten in diese für uns unbekannte und weitverbreitete Technologie einzusteigen entschieden wir uns für React. Die dort verwendete Syntax empfanden wir beide als verständlicher als die von Flutter.
+Um die Entwicklungsgeschwindigkeit zu verkürzen, verwenden wir zusätzlich zu JavaScript und React die Laufzeitumgebung Node.js. Es ermöglicht Codeanpassungen an der GUI direkt sichtbar zu machen.
+
 ## Beschreibung der Architektur
+### index.js
+In der index.js befindet sich das root-element der Web-App, welches die Attribute, die für alle weiteren Komponenten gelten, definiert. In diesem befindet sich das Element <Strictmode>. Dieses ist eine Komponente aus React und hilft während der Entwicklung, Fehler frühzeitig zu entdecken. Die eigentliche Web-App befindet sich wiederum im <Strictmode> Element.
 ### App.js
 - Websockets
 - Elemente (CSS in der App.css bzw. Darkmode.css)
@@ -84,30 +88,23 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ### App.css
 - Style für alle Elemente
 - leicht anpassbar
-### Darkmode.css
-- Wie App.css nur mit dunkleren Farben
-### index.js
-- definiert das root-element
-- verwendet <Strictmode> um Fehler frühzeitig zu entdecken
+- .dark & .light suffixes
 
 ## Versionen
-
 
 # Backend
 
 ## Installationsanweisungen
 
-
 ## Beschreibung der Architektur
-
 
 ## Versionen
 
 # Lokales Netzwerk aufsetzen
-1. Hotspot eines beliebigen Gerätes öffnen
+1. Hotspot eines beliebigen Gerätes eröffnen
 2. Frontend- und Backend-Geräte mit diesem Netzwerk verbinden
 3. Die IPv4-Adresse dieses Netzwerks herausfinden (cmd: `ipconfig`)
-4. Diese IPv4 an den entsprechenden Stellen im Frontend und Backend anpassen
+4. Diese IPv4 an den entsprechenden Stellen im Frontend und Backend anpassen todo (Stellen konkret angeben)
 5. Frontend und Backend starten und testen
 
 # Bedienungsanleitung
@@ -120,7 +117,7 @@ Wenn die Verbindung erfolgreich ist, wird automatisch der bisherige Chatverlauf 
 Anschließend kann am unteren Fensterrand eine neue Nachricht eingegeben werden und mit dem Button rechts daneben oder mit der Enter-Taste abgesendet werden.
 Die Nachricht wird in Echtzeit an alle angebundenen Clients übertragen und angezeigt.  
 
-## Informationen einer Nachricht
+## Informationen einer Nachricht todo (algemeines über Chat-Box ausführen, ggf. wie die Speicherung ist)
 Jede angezeigte Nachricht enthält folgende Informationen:
 - Autor (links oben)
 - Zeitstempel (rechts oben)
@@ -136,6 +133,12 @@ Solange kein Mode ausgewählt wurde, wird der aktuell verwendete Mode von Window
 - Ein Button ohne Funktion, mit dem zukünftig die Einstellungen der App angepasst werden können.
 - Ein Button ohne Funktion, mit dem zukünftig das Benutzer-Profil bearbeitet werden kann.
 Desweiteren besteht dort die Möglichkeit einige der oben genannten Erweiterungen und Weiterführende zu integrieren.
+
+## Sonstiges todo
+- Responsive Webdesign
+- Echtzeit
+- Speicherung des Chats
+- Verhalten bei n Teilnehmern
 
 # Entwicklungsprozess
 ## Arbeit mit Github und Absprache
@@ -161,13 +164,14 @@ Desweiteren besteht dort die Möglichkeit einige der oben genannten Erweiterunge
 
 # Aufgabenverteilung innerhalb des Entwicklerteams
 ## Frontend
-##Backend
+## Backend
 
-
-# Geplante Erweiterungen. 
+# Geplante Erweiterungen
 - Emoji-Unterstützung via Picker
 - Nachrichten bearbeiten/löschen
 - Minigames wie Tetris
+- Individuelle Benutzerprofile
+- Einstellungsmöglichkeiten für die Web-App allgemein und das Benutzerprofil
 
 # Mögliche Erweiterungen
 - Online-Status
@@ -177,3 +181,5 @@ Desweiteren besteht dort die Möglichkeit einige der oben genannten Erweiterunge
 - Accounts mit Login
 - Alternatives speichern des Chatverlaufs (verschlüsselt)
 - KI-Chat
+- @dding (mit User-Directory um @dding möglich zu machen und dabei die Kernfunktionalität beizubehalten) 
+- Hintergrund-Bild des Chat-Fensters personalisieren

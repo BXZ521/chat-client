@@ -59,7 +59,6 @@ Die Idee entspricht der Anforderung, eine Web-Applikation mit Client-Server-Komm
 # Frontend
 
 ## Installationsanweisungen
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) todo (relevant?)
 ### App erstellen
 - Ziel-Verzeichnis auf dem lokalen Gerät festlegen
 - nodeJS herunterladen und installieren von [https://nodejs.org/en](https://nodejs.org/en)
@@ -80,11 +79,16 @@ Um die Entwicklungsgeschwindigkeit zu verkürzen, verwenden wir zusätzlich zu J
 
 ## Beschreibung der Architektur
 ### index.js
-In der index.js befindet sich das root-element der Web-App, welches die Attribute, die für alle weiteren Komponenten gelten, definiert. In diesem befindet sich das Element <Strictmode>. Dieses ist eine Komponente aus React und hilft während der Entwicklung, Fehler frühzeitig zu entdecken. Die eigentliche Web-App befindet sich wiederum im <Strictmode> Element.
+In der index.js befindet sich das root-element der Web-App, welches die Attribute, die für alle weiteren Komponenten gelten, definiert. In diesem befindet sich das Element <Strictmode>. Dieses ist eine Komponente aus React und hilft während der Entwicklung, Fehler frühzeitig zu entdecken. Die eigentliche Web-App befindet sich wiederum im <Strictmode> Element. Somit enthält dieser Datei keine Logik, aber dennoch ist das gesamte Frontend von ihr abhängig.
+### config.json
+
 ### App.js
 - Websockets
-- Elemente (CSS in der App.css bzw. Darkmode.css)
+- Elemente (CSS in der App.css)
 - function formatTime
+Die App.js ist das Herzstück des Frontend. Es beinhaltet die gesamte Logik zur Kommunikation mit dem Backend, alle sichtbaren GUI-Elemente und weitere Funktionen, die das Verhalten der GUI steuern.
+Im oberen Teil befinden sich die notwendigen Imports und anschließend wird die Funktion App() definiert, welche fast den gesamten Teil der Logik beinhaltet. Zunächst werden einige useStates definiert, um Informationen wie den Chatverlauf – der vom Backend gesendet wird -, die vom Benutzer eingegebene Nachricht, oder das aktuelle Theme zu speichern.
+Anschließend folgt die Logik zur Kommunikation mit dem Backend. Sie verwendet einen React-Hook um die Verbindung zum Backend mittels eines WebSockets herzustellen. Dieser enthält weitere Funktionen die das Verhalten beim erfolgreichen Verbinden oder Schließen der Verbindung, empfangen eines aktuelleren Chatverlaufs steuern. In einer separaten Funktion ist die Logik zum Versenden einer neuen Nachricht an das Backend definiert. 
 ### App.css
 - Style für alle Elemente
 - leicht anpassbar
@@ -135,13 +139,17 @@ Wenn anfangs noch kein Theme ausgewählt wurde, wird das aktuell verwendete Them
 Desweiteren besteht in dieser Menuleiste die Möglichkeit einige der oben genannten Erweiterungen und Weitere zu integrieren.
 
 ## Sonstiges todo
-- Responsive Webdesign
-- Echtzeit
-- Speicherung des Chats
-- Verhalten bei n Teilnehmern
-Weitere Eigenschaften der Web-App sind ein Responsive Webdesign. Dieses erlaubt es die Web-App auch auf einen kleineren Bildschirm zu skalieren.
+Nach dem Aufrufen des Clients im Browser verbindet sich dieser automatisch mit dem Server und lädt den - auf dem Server gespeicherten – Chatverlauf und scrollt zur zuletzt geschriebenen Nachricht.
+Nach dem Verfassen und Absenden einer Nachricht wird diese in Echtzeit über den Server an alle angeschlossenen Clients weitergeleitet. Bei Erhalt einer neuen Nachricht wird automatisch entsprechend nach unten gescrollt, um die Nachricht innerhalb des Chat-Fensters zu behalten.
+Eine weitere Eigenschaft der Web-App ist ein Responsive Webdesign. Dieses erlaubt es die Web-App auch Bildschirme mit unterschiedlichen Größen zu skalieren. Somit könnte die Web-App von der GUI her auch auf einem Mobilgerät bedient werden.
+Zusätzlich gibt es die Funktion eines primitiven Adressierens von Nachrichten an bestimmte Benutzer. Die Web-App unterstützt aktuell einen Chatraum, in dem alle Nachrichten wie bei einem Hub an alle weitergeleitet werden und für alle sichtbar sind. Mit dem Tag „/@“ und einem ohne Leerzeichen anschließendem Benutzernamen werden Nachrichten in diesem Chatraum nur an einen spezifischen Nutzer adressiert, so dass nur dieser die Nachricht angezeigt bekommt. Dieses Tag wird in dasselbe Eingabefeld geschrieben, wie die Nachricht. Dabei ist es nicht relevant, an welcher Stelle das Tag kann in der Nachricht steht. Es könnte sich am Anfang, in der Mitte oder am Ende befinden. Wenn eine Nachricht kein Tag beinhaltet, wird diese wie gewöhnlich für alle Benutzer sichtbar.
+Darüber hinaus ist der Chat in der Lage mit mehreren Clients gleichzeitig zu kommunizieren, so dass dieser ohne viel Auffand aus einem Privatchat zu einem Gruppenchat skaliert werden kann. Das Verhalten bleibt dabei gleich, nur dass jetzt am linken Rand des Chat-Fensters Nachrichten von mehr als einem Nutzer angezeigt werden.
 
 # Entwicklungsprozess
+In diesem Kapitel wird der Entwicklungsprozess der Web-App beschrieben und dabei auf Entscheidungen und deren Folgen eingegangen.
+
+## Implementierung
+
 ## Arbeit mit Github und Absprache
 ## Begin mit Backend
 ## Testen verschiedener Technologien, warum haben wir diese verwendet?
@@ -149,6 +157,16 @@ Weitere Eigenschaften der Web-App sind ein Responsive Webdesign. Dieses erlaubt 
 ### Flutter -> React
 ### Internet -> LAN-Hotspot
 ## Chat-Design
+
+# Aufgabenverteilung innerhalb des Entwicklerteams
+
+## Frontend
+### Tim
+### Benjamin
+
+## Backend
+### Benjamin
+### Tim
 
 # Herausforderungen
 - REST API genügt nicht
@@ -163,9 +181,11 @@ Weitere Eigenschaften der Web-App sind ein Responsive Webdesign. Dieses erlaubt 
 - Erstellen eines lokalen Netzwerks
 - Github alternative
 
-# Aufgabenverteilung innerhalb des Entwicklerteams
-## Frontend
-## Backend
+# Selbstkritik
+- Absturz bei zu langer Nachricht
+- nur primitives Atdding --> beutzerverwaltung
+-  klauen von Identitäten --> echte Verwaltung von benutzern
+- eingriff in Chatlog und datensicherheit
 
 # Geplante Erweiterungen
 - Emoji-Unterstützung via Picker
@@ -173,6 +193,7 @@ Weitere Eigenschaften der Web-App sind ein Responsive Webdesign. Dieses erlaubt 
 - Minigames wie Tetris
 - Individuelle Benutzerprofile
 - Einstellungsmöglichkeiten für die Web-App allgemein und das Benutzerprofil
+- @dding (mit User-Directory um @dding möglich zu machen und dabei die Kernfunktionalität beizubehalten) 
 
 # Mögliche Erweiterungen
 - Online-Status
@@ -182,5 +203,4 @@ Weitere Eigenschaften der Web-App sind ein Responsive Webdesign. Dieses erlaubt 
 - Accounts mit Login
 - Alternatives speichern des Chatverlaufs (verschlüsselt)
 - KI-Chat
-- @dding (mit User-Directory um @dding möglich zu machen und dabei die Kernfunktionalität beizubehalten) 
 - Hintergrund-Bild des Chat-Fensters personalisieren

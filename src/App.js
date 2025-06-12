@@ -21,7 +21,7 @@ function App() {
 
   // WebSocket to connect with the server (backend)
   useEffect(() => {
-    socketRef.current = new WebSocket(`ws:${config.ServerAdress}/chat`);
+    socketRef.current = new WebSocket(`ws:${config.ServerAddress}/chat`);
 
     socketRef.current.onopen = () => {
       setConnected(true);

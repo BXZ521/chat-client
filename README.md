@@ -94,6 +94,8 @@ Anschließend folgt die Logik zur Kommunikation mit dem Backend. Sie verwendet e
 - leicht anpassbar
 - .dark & .light suffixes
 
+## Beschreibung spezifischerer Funktionalität
+
 ## Versionen
 
 # Backend
@@ -101,6 +103,8 @@ Anschließend folgt die Logik zur Kommunikation mit dem Backend. Sie verwendet e
 ## Installationsanweisungen
 
 ## Beschreibung der Architektur
+
+## Beschreibung spezifischerer Funktionalität
 
 ## Versionen
 

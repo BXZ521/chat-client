@@ -104,7 +104,7 @@ In der index.js befindet sich das root-element der Web-App, welches die Attribut
 1. Hotspot eines beliebigen Gerätes eröffnen
 2. Frontend- und Backend-Geräte mit diesem Netzwerk verbinden
 3. Die IPv4-Adresse dieses Netzwerks herausfinden (cmd: `ipconfig`)
-4. Diese IPv4 an den entsprechenden Stellen im Frontend und Backend anpassen todo (Stellen konkret angeben)
+4. Diese IPv4 an den entsprechenden Stellen im Frontend (src/config.json, Attribut: ServerAdress) und Backend (Properties/launchSettings.json, Profile: http und https, Attribut: applicationUrl)
 5. Frontend und Backend starten und testen
 
 # Bedienungsanleitung
@@ -122,23 +122,24 @@ Jede angezeigte Nachricht enthält folgende Informationen:
 - Autor (links oben)
 - Zeitstempel (rechts oben)
 - Inhalt der Nachricht (zentral)
-Selbstverfasste Nachrichten werden rechtsbündig und alle anderen linksbündig dargestellt.
-Der Chat erinnert damit an das design und Verhalten von WhatsApp.
+Selbstverfasste Nachrichten werden rechtsbündig und alle anderen linksbündig dargestellt und zusätzlich farblich hervorgehoben. 
+Der Chat erinnert damit an das Design und Verhalten von anderen weit verbreiteten Chat-Systemen.
 
 ## Menuleiste oben
 Am oberen Rand des Fensters befindet sich eine Menuleiste.
 Dort liegen sich von links nach rechts:
-- Ein Button, mit dem vom Light- in den Darkmode und zurück gewechselt werden kann. Der eingestellte Mode bleibt beim Neuladen der Seite bestehen.
-Solange kein Mode ausgewählt wurde, wird der aktuell verwendete Mode von Windows übernommen.
-- Ein Button ohne Funktion, mit dem zukünftig die Einstellungen der App angepasst werden können.
-- Ein Button ohne Funktion, mit dem zukünftig das Benutzer-Profil bearbeitet werden kann.
-Desweiteren besteht dort die Möglichkeit einige der oben genannten Erweiterungen und Weiterführende zu integrieren.
+- Ein Button, mit dem vom Light- in den Darkmode (Theme) und zurück gewechselt werden kann. Das eingestellte Theme bleibt beim Neuladen der Seite bestehen.
+Wenn anfangs noch kein Theme ausgewählt wurde, wird das aktuell verwendete Theme von Windows übernommen.
+- Ein Einstellungen-Button der bislang nur ein Popup erscheinen lässt. Zukünftig können dort die Einstellungen der App angepasst werden.
+- Ein Profil-Button der bislang nur ein Popup mit dem aktuellen Benutzernamen erscheinen lässt. Zukünftig können dort die Einstellungen des Profils angepasst werden.
+Desweiteren besteht in dieser Menuleiste die Möglichkeit einige der oben genannten Erweiterungen und Weitere zu integrieren.
 
 ## Sonstiges todo
 - Responsive Webdesign
 - Echtzeit
 - Speicherung des Chats
 - Verhalten bei n Teilnehmern
+Weitere Eigenschaften der Web-App sind ein Responsive Webdesign. Dieses erlaubt es die Web-App auch auf einen kleineren Bildschirm zu skalieren.
 
 # Entwicklungsprozess
 ## Arbeit mit Github und Absprache

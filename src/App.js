@@ -47,10 +47,19 @@ function App() {
   const sendMessage = () => {
     if (!input.trim()) return;
 
+    let addressee = '/@alle';
+    if (input.includes('/@')) {
+      const indexOfFirstAt = input.indexOf('/@');
+      const indexOfFirstSpaceAfterAtString = input.indexOf(' ', indexOfFirstAt);
+      console.log(indexOfFirstAt + '---' + indexOfFirstSpaceAfterAtString)
+      addressee = input.substring(indexOfFirstAt, indexOfFirstSpaceAfterAtString)
+    }
+
     const message = {
       Author: Author,
       Message: input,
       TimeStamp: new Date().toDateString(), // redundant
+      Addressee: addressee,
     };
 
     socketRef.current.send(JSON.stringify(message));
@@ -88,15 +97,18 @@ function App() {
           <div className='chat-box'>
             {messages.map((msg, idx) => (
               <div key={idx}>
-                <div className={`chat-message ${msg.Author === Author ? 'own' : 'other'}`}>
-                  <div className="chat-bubble">
-                    <div className="chat-meta">
-                      <div className="chat-author">{msg.Author}</div>
-                      <div className="chat-time">{formatTime(msg.TimeStamp)}</div>
+                {msg.Author === Author || msg.Addressee === '/@alle' || msg.Addressee === '/@' + Author ?
+                  <div className={`chat-message ${msg.Author === Author ? 'own' : 'other'}`}>
+                    {msg.addressee}
+                    <div className="chat-bubble">
+                      <div className="chat-meta">
+                        <div className="chat-author">{msg.Author}</div>
+                        <div className="chat-time">{formatTime(msg.TimeStamp)}</div>
+                      </div>
+                      <div className="chat-text"> {msg.Message}</div>
                     </div>
-                    <div className="chat-text"> {msg.Message}</div>
                   </div>
-                </div>
+                  : <div />}
               </div>
             ))}
             <div ref={bottomRef} /> {/* Auto-Scroll anchor */}

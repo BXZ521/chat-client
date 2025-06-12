@@ -15,6 +15,7 @@
   align-items: center;
 }
 
+
 /* Lightmode */
 .app.light {
   background-color: #ddd;
@@ -210,6 +211,7 @@
 .button-send:active {
   transform: scale(0.9);
 }
+
 
 /* Theme Toggle Button */
 .toggle-theme-btn {

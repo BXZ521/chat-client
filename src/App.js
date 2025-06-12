@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { MdSend } from 'react-icons/md';
 import './App.css';
+import config from './config.json';
 
 function App() {
   const [messages, setMessages] = useState([]);
@@ -13,17 +14,14 @@ function App() {
     if (saved !== null) return saved === 'true';
     return window.matchMedia('(prefers-color-scheme: dark)').matches;
   });
-
   const toggleDarkMode = () => {
     setDarkMode(prev => !prev);
   };
+  const Author = config.Author;
 
-  const Author = "Tim";
-
-
+  // WebSocket to connect with the server (backend)
   useEffect(() => {
-    // Connect to the WebSocket backend
-    socketRef.current = new WebSocket('ws:localhost:5125/chat');
+    socketRef.current = new WebSocket(`ws:${config.ServerAdress}/chat`);
 
     socketRef.current.onopen = () => {
       setConnected(true);
@@ -45,14 +43,7 @@ function App() {
     };
   }, []);
 
-  useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages]);
-
-  useEffect(() => {
-    localStorage.setItem('darkMode', darkMode);
-  }, [darkMode]);
-
+  // Send a message
   const sendMessage = () => {
     if (!input.trim()) return;
 
@@ -65,6 +56,16 @@ function App() {
     socketRef.current.send(JSON.stringify(message));
     setInput('');
   };
+
+  // Auto-Scroll to latest message
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
+
+  // Store theme in localstorage
+  useEffect(() => {
+    localStorage.setItem('darkMode', darkMode);
+  }, [darkMode]);
 
   return (
     <div className={`app ${darkMode ? 'dark' : 'light'}`}>
@@ -98,7 +99,7 @@ function App() {
                 </div>
               </div>
             ))}
-            <div ref={bottomRef} /> {/* Auto-scroll anchor */}
+            <div ref={bottomRef} /> {/* Auto-Scroll anchor */}
           </div>
 
           <div className='message-container'>
@@ -136,6 +137,7 @@ function App() {
   );
 }
 
+// Convert DateTime to a nicer format 
 function formatTime(time) {
   const year = time.substring(0, 4);
   const month = time.substring(5, 7);

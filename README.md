@@ -142,7 +142,19 @@ Es wird die Verwendung von Visual Studio 2022 empfohlen!
 - Der Server läuft lokal und ist dann unter z. B. [http://localhost:5125](http://localhost:5125) zu erreichen.
 - Websocket Endpunkt:
 `ws://localhost:5125/chat`
+#### Mit der Kommandozeile (.NET CLI)
+Im Backend-Projektverzeichnis (dort, wo sich die `.csproj` befindet) folgende Befehle ausführen:
 
+```bash
+# Abhängigkeiten laden
+dotnet restore
+
+# Optional: Projekt kompilieren
+dotnet build
+
+# Server starten
+dotnet run
+```
 ## Beschreibung der Architektur
 ### Models.ChatMessage.cs
 

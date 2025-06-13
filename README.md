@@ -188,8 +188,54 @@ Die Klasse `ChatMessage` beschreibt eine einzelne Nachricht im Chat. Sie besteht
 
 Die Datei `chatlog.json` enthält ein JSON-Array aus mehreren `ChatMessage`-Objekten. Sie speichert den vollständigen Chatverlauf und wird bei jeder neuen Nachricht automatisch aktualisiert und erweitert.
 
-### Controllers.WebSocketController.cs
+### Controllers/WebSocketController.cs
+
+Die Datei `WebSocketController.cs` ist das Herzstück des Backends.
+ Sie implementiert die gesamte WebSocket-Kommunikation des Backends. Sie verwaltet aktive Verbindungen, verarbeitet eingehende Nachrichten und sorgt für deren Verteilung an alle verbundenen Clients.
+ Außerdem wird der Chatverlauf dauerhaft in einer JSON-Datei gespeichert.
+
+#### Verbindungsaufbau
+
+Wird über den Pfad `/chat` eine WebSocket-Verbindung angefragt, prüft der Server die Gültigkeit der Anfrage. Bei Erfolg wird die Verbindung akzeptiert, der WebSocket zur Liste der aktiven Clients (`ConnectedClients`) hinzugefügt und der aktuelle Chatverlauf übermittelt.
+
+#### Nachrichtenverarbeitung in `ReceiveLoop`
+
+Die Methode `ReceiveLoop` bildet den zentralen Verarbeitungspunkt für eingehende Nachrichten. Sie arbeitet asynchron und wiederholt solange, wie die Verbindung geöffnet ist. Der Ablauf bei jeder empfangenen Nachricht:
+
+1. Der empfangene Text wird aus dem Byte-Array rekonstruiert und in ein `ChatMessage`-Objekt deserialisiert.
+2. Der **Zeitstempel wird zentral vom Server gesetzt** (`DateTime.Now`).  
+   Dadurch erhalten alle Nachrichten eine einheitliche, vom Server bestimmte Uhrzeit – unabhängig von der Systemzeit oder Latenz der einzelnen Clients.
+3. Die Nachricht wird zum bestehenden Chatverlauf hinzugefügt und gespeichert.
+4. Der aktualisierte Verlauf wird anschließend an alle verbundenen Clients übertragen.
+
+Wird die Verbindung vom Client geschlossen oder getrennt, wird der WebSocket wieder aus der Liste entfernt.
+
+#### Synchronisierung
+
+Da mehrere Clients gleichzeitig auf gemeinsame Ressourcen zugreifen können, erfolgt der Zugriff auf die WebSocket-Liste sowie die Dateioperationen unter Verwendung eines `lock`-Objekts. So wird paralleler Zugriff geordnet und Datenverlust oder Inkonsistenzen vermieden.
+
+#### Speicherung des Chatverlaufs
+
+Die gesamte Konversation wird lokal in der Datei `chatlog.json` gespeichert. Jede neue Nachricht wird an die bestehende Liste angehängt, die Datei wird anschließend überschrieben. Eine externe Datenbank ist nicht notwendig.
+
+#### Broadcasting
+
+Sobald eine neue Nachricht empfangen und gespeichert wurde, wird der vollständige Chatverlauf an alle verbundenen Clients gesendet. Dies geschieht mittels der Methode `Broadcast()`, die alle aktiven WebSocket-Verbindungen durchläuft und die Nachricht parallel versendet. Geschlossene oder fehlerhafte Verbindungen werden dabei übersprungen.
+
 ### Program.cs
+
+Die Datei `Program.cs` fungiert als Main-Datei und Einstiegspunkt der Backend-Anwendung.
+
+- **CORS-Policy**  
+  Eine CORS-Policy wird definiert, um Cross-Origin-Anfragen vom React-Frontend (`http://localhost:3000`) zu erlauben.  
+  Dabei werden alle HTTP-Methoden und Header freigegeben, um eine reibungslose Kommunikation zwischen Frontend und Backend sicherzustellen.
+
+- **WebSocket-Konfiguration**  
+  WebSocket-Verbindungen werden auf dem Pfad `/chat` entgegengenommen und vom WebSocketController verarbeitet.  
+  Ein Keep-Alive-Intervall von 2 Minuten wird gesetzt, um bestehende Verbindungen aktiv zu halten und mögliche Verbindungsabbrüche durch Netzwerkinfrastrukturen zu minimieren.
+
+Zusätzlich werden in `Program.cs` Controller, HTTPS-Weiterleitung, Autorisierung sowie Swagger für die API-Dokumentation konfiguriert und aktiviert.
+
 ### launchSettings.json
 
 Für den Betrieb des WebSocket-Servers ist insbesondere die `applicationUrl` relevant, da sie die Adresse bestimmt, unter der das Backend erreichbar ist.

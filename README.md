@@ -251,7 +251,119 @@ Für die WebSocket-Verbindung ergeben sich daraus folgende Adressen:
 
 Um eine Verbindung zum Backend über WebSocket herzustellen, sollten die `ws://`- oder `wss://`-Adressen verwendet werden.
 ## Beschreibung spezifischerer Funktionalität
+### Handling der Echtzeitverbindung im ReceiveLoop
 
+#### 1. Puffer für eingehende Daten definieren
+
+```csharp
+var buffer = new byte[1024 * 4];
+```
+
+* Es wird ein Byte-Array mit 4096 Bytes (4 KB) erstellt, um eingehende WebSocket-Daten temporär zu speichern.
+* **Limitierung:** Nachrichten, die länger als 4 KB sind, können nicht in einem Stück empfangen werden.
+
+---
+
+#### 2. Empfangsschleife starten
+
+```csharp
+while (socket.State == WebSocketState.Open)
+{
+    ...
+}
+```
+
+* Die Schleife läuft so lange, wie die WebSocket-Verbindung offen ist.
+* Innerhalb der Schleife wird jeweils ein Datenpaket vom Client gelesen.
+
+---
+
+#### 3. Daten vom WebSocket lesen
+
+```csharp
+var result = await socket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
+```
+
+* `ReceiveAsync` wartet auf eingehende Daten und füllt den Puffer (max. 4 KB).
+* `result` enthält wichtige Informationen:
+
+  * `result.Count`: Tatsächlich empfangene Bytes.
+  * `result.MessageType`: Art der Nachricht (Text, Binary, Close).
+  * `result.EndOfMessage`: Ob die Nachricht komplett ist (wichtig bei Fragmentierung).
+
+---
+
+#### 4. Prüfen, ob der Client die Verbindung schließen will
+
+```csharp
+if (result.MessageType == WebSocketMessageType.Close)
+{
+    await socket.CloseAsync(WebSocketCloseStatus.NormalClosure, "Closed by client", CancellationToken.None);
+    break;
+}
+```
+
+* Wenn der Client eine Close-Nachricht sendet, wird die Verbindung ordnungsgemäß beendet.
+* Die Schleife bricht ab, damit keine weiteren Daten empfangen werden.
+
+---
+
+#### 5. Umwandeln der empfangenen Bytes in einen String
+
+```csharp
+var json = Encoding.UTF8.GetString(buffer, 0, result.Count);
+```
+
+* Die empfangenen Bytes (von 0 bis `result.Count`) werden als UTF-8 Text interpretiert.
+* Das Ergebnis ist der JSON-String der Chatnachricht.
+
+---
+
+#### 6. Deserialisieren der JSON-Nachricht
+
+```csharp
+var message = JsonSerializer.Deserialize<ChatMessage>(json);
+```
+
+* Der JSON-String wird in ein `ChatMessage`-Objekt umgewandelt.
+* Wenn die JSON-Struktur nicht korrekt ist, liefert `Deserialize` `null`.
+
+---
+
+#### 7. Server-seitiges Setzen des Zeitstempels
+
+```csharp
+message.TimeStamp = DateTime.Now.ToString("o");
+```
+
+* Der Server überschreibt den Zeitstempel, um allen Clients eine einheitliche, serverseitige Zeitbasis zu geben.
+* Das Format `"o"` entspricht einem präzisen ISO-8601-Format (z.B. `2025-05-30T14:45:31.4378781`).
+
+
+
+#### 8. Aktualisieren und Speichern des Chatverlaufs
+
+```csharp
+var messages = LoadChatLog();
+messages.Add(message);
+SaveChatLog(messages);
+```
+
+* Die gesamte Chat-Historie wird geladen (`LoadChatLog`).
+* Die neue Nachricht wird angehängt.
+* Die aktualisierte Liste wird wieder in die Datei gespeichert (`SaveChatLog`).
+
+---
+
+#### 9. Broadcast an alle verbundenen Clients
+
+```csharp
+var outJson = JsonSerializer.Serialize(messages);
+await Broadcast(outJson);
+```
+
+* Der komplette aktualisierte Chatverlauf wird serialisiert.
+* Die Methode `Broadcast` sendet die Daten an alle aktiven WebSocket-Clients.
 ## Versionen
 
 # Lokales Netzwerk aufsetzen

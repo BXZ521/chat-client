@@ -2,10 +2,13 @@ import React, { useEffect, useState, useRef } from 'react';
 import { MdSend } from 'react-icons/md';
 import './App.css';
 import config from './config.json';
+import EmojiPicker from 'emoji-picker-react';
+
 
 function App() {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
+  const [showPicker, setShowPicker] = useState(false);
   const [connected, setConnected] = useState(false);
   const socketRef = useRef(null);
   const bottomRef = useRef(null);
@@ -114,6 +117,13 @@ function App() {
           </div>
 
           <div className='message-container'>
+             <button
+                className='emoji-button'
+                onClick={() => setShowPicker((val) => !val)}
+                type="button"
+              >
+                ☺
+              </button>
             <input
               type="text"
               value={input}
@@ -124,6 +134,17 @@ function App() {
             />
             <button onClick={sendMessage} className='button-send'><MdSend /></button>
           </div>
+            {showPicker && (
+              <div className='emoji-picker'>
+                <EmojiPicker
+                  onEmojiClick={(emojiData) => {
+                    setInput((prev) => prev + emojiData.emoji);
+                    setShowPicker(false); // Picker nach Auswahl schließen
+                  }}
+                  theme={darkMode ? 'dark' : 'light'}
+                />
+              </div>
+            )}
         </div>
         :
         <div className='error-container'>

@@ -68,6 +68,10 @@
   background-color: #1DA851;
 }
 
+.app.light .emoji-button {
+  color: black;
+}
+
 
 /* Darkmode */
 .app.dark {
@@ -119,6 +123,10 @@
 
 .app.dark .button-send:hover {
   background-color: #4fcffa;
+}
+
+.app.dark .emoji-button {
+  color: white;
 }
 
 
@@ -246,4 +254,25 @@
   height: 100%;
   border: none;
   display: block;
+}
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.emoji-button {
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+.emoji-picker {
+  position: absolute;
+  bottom: 60px;
+  right: 60px;
+  z-index: 100;
 }

@@ -137,10 +137,8 @@ function App() {
             <iframe
               src="https://chromedino.com/"
               title="Chrome Dino Game"
-              width="100%"
-              height="100%"
+              scrolling='no'
               loading="lazy"
-              style={{ display: 'block' }}
             ></iframe>
           </div>
         </div>

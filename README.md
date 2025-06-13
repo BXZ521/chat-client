@@ -52,7 +52,7 @@ Die Idee entspricht der Anforderung, eine Web-Applikation mit Client-Server-Komm
 - **API-Kommunikation**: Websockets
 - **Backend (Server)**: C#, .NET Core
 - **Datenübertragung**: Websockets für Basisfunktionen und Echtzeitübertragung von Nachrichten
-- **Dateihandling**: ggf. `cURL` für Datei-Uploads
+- **Dateihandling**: ggf. zukünftig `cURL` für Datei-Uploads
 - **Speichern des Chatverlaufs**: JSON-Format in einer Log-Datei
 - **Versionsverwaltung & Doku**: Git & GitHub (inkl. Markdown-Doku)
 

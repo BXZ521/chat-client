@@ -68,14 +68,15 @@ Die Idee entspricht der Anforderung, eine Web-Applikation mit Client-Server-Komm
 	- Icons importieren `npm install react-icons`
 	- auf den aktuellen Branch wechseln `git checkout tist_frontend`
 	- aktuellen Stand pullen `git pull`
-- eingetragene IP Adresse im Frontend prüfen. Es sollte die sein, auf die das der Server hört. (mittels `ipconfig` in der cmd kann die IP des eigenen Gerätes angezeigt werden)
+- Eigenen Benutzernamen in der config.json eintragen (Attribut: Author)
+- IP-Adresse in der config.json prüfen (Attribut: ServerAddress). Es sollte die eingetragen werden, auf die das der Server hört. (Mittels `ipconfig` in der cmd kann die IP des eigenen Gerätes angezeigt werden)
 ### App starten
 - App im Entwicklermodus starten `npm start`
 - Läuft im Browser unter der URL: [http://localhost:3000](http://localhost:3000)
 
-## Beschreibung der Technologie todo (ohne wir, uns, ...)
-Für das Frontend unserer Web-App müssen wir eine Programmiersprache und ein Framework auswählen. Zum einen wollten wir etwas vertrautes benutzen, damit wir schneller Code schreiben und verstehen können. Zum anderen wollten wir eine weitverbreitete Technologie verwenden, da es dazu große Communities und Dokumentationen gibt. Das in der Vorlesung vorgestellte Framework Flutter war neu für uns und wir hatten beide Schwierigkeiten mit dem Verständnis der Syntax. Daher entschieden wir uns gegen die Verwendung von Flutter. Letztendlich entschieden wir uns für die Programmiersprache JavaScript in Kombination mit der Bibliothek und Framework React. In JavaScript waren wir beide bereits geübt und React war neu für uns. Da wir beide ein Interesse hatten in diese für uns unbekannte und weitverbreitete Technologie einzusteigen entschieden wir uns für React. Die dort verwendete Syntax empfanden wir beide als verständlicher als die von Flutter.
-Um die Entwicklungsgeschwindigkeit zu verkürzen, verwenden wir zusätzlich zu JavaScript und React die Laufzeitumgebung Node.js. Es ermöglicht Codeanpassungen an der GUI direkt sichtbar zu machen.
+## Beschreibung der Technologie
+Für das Frontend der Web-App musste eine Programmiersprache und ein Framework ausgewählt werden. Zum einen sollte etwas Vertrautes benutzen verwendet werden, damit schneller Code geschrieben und dieser leichter verstanden werden kann. Zum anderen sollte eine weitverbreitete Technologie verwendet werden, da es für eine solche große Communities und Dokumentationen gibt. Das in der Vorlesung vorgestellte Framework Flutter war neu und die Syntax war schwer zu verstehen. Daher wurde sich gegen die Verwendung von Flutter entschieden. Letztendlich wurde sich für die Programmiersprache JavaScript in Kombination mit der Bibliothek und Framework React entschieden. In JavaScript gab es bereits gute Vorkenntnisse seitens der Entwickler und React ist eine weitverbreitete Technologie die einerseits neu, aber auch interessant zu lernen war. Da ein Interesse bestand, in diese unbekannte Technologie einzusteigen wurde sich für React entschieden. Zusätzlich wurde die dort verwendete Syntax als verständlicher als die von Flutter empfunden.
+Um die Entwicklungsgeschwindigkeit zu verkürzen, wurde zusätzlich zu JavaScript und React die Laufzeitumgebung Node.js verwendet. Es ermöglicht Codeanpassungen an der GUI direkt im Browser sichtbar zu machen.
 
 ## Beschreibung der Architektur todo(unvollständig)
 ### index.js
@@ -87,7 +88,13 @@ Die App.js ist das Herzstück des Frontend. Es beinhaltet die gesamte Logik zur 
 Im oberen Teil befinden sich die notwendigen Imports und anschließend wird die Funktion App() definiert, welche fast den gesamten Teil der Logik beinhaltet. Zunächst werden einige useStates definiert, um Informationen wie den Chatverlauf – der vom Backend gesendet wird -, die vom Benutzer eingegebene Nachricht, oder das aktuelle Theme zu speichern.
 Anschließend folgt die Logik zur Kommunikation mit dem Backend. Sie verwendet einen React-Hook, um die Verbindung zum Backend mittels eines WebSockets herzustellen. Dieser Hook enthält weitere Funktionen die das Verhalten beim erfolgreichen Verbinden oder Schließen der Verbindung, empfangen eines aktuelleren Chatverlaufs steuern. In einer separaten Funktion ist die Logik zum Versenden einer neuen Nachricht an das Backend definiert. In dieser wird auch die Untersuchung auf ein Tag vorgenommen und je nach dem der Entsprechende Benutzername dem Tag hinterlegt.
 Danach folgt die Methode, welche das automatische Scrollen ermöglicht und die Methode, welche das Theme der Web-App festlegt.
-Die Funktion App() returnt am Ende ein HTML, welches die GUI-Elemente definiert.
+Die Funktion App() returnt am Ende ein HTML, welches die GUI-Elemente definiert. Dieses beginnt mit dem Anwenden des eingestellten Theme und dem Teil der angezeigt wird, wenn eine Verbindung zum Server besteht.
+Darunter ist die Menuleiste mit den enthaltenen Buttons definiert.
+Anschließend folgt die Chatbox, welche eine Funktion verwendet, um die Nachrichten anzuzeigen. Innerhalb ist eine Prüfung, um nach Tags zu filtern und die Definition des Aufbaus einer Chat-Nachricht.
+Unterhalb davon befindet sich der Auto-Scroll-Anchor.
+Als nächstes folgt die Implementierung für den Input einer Nachricht und der Senden-Button.
+Als letztes wird die Ansicht definiert, welche angezeigt wird, wenn der Server nicht verbunden ist.
+Unterhalb der App() Funktion befindet sich abschließend die Methode zum Formatieren des DateTime-Formats in ein benutzerfreundlicheres Format (dd.mm.yyyy HH:MM).
 
 ### App.css
 - Style für alle Elemente
@@ -122,7 +129,7 @@ Die Funktion App() returnt am Ende ein HTML, welches die GUI-Elemente definiert.
 
 ## Start in die App
 Nach dem erfolgreichen Starten des Back- und Frontend, muss zunächst die Web-App im Browser unter der URL: [http://localhost:3000](http://localhost:3000) aufgerufen werden.
-Wenn das Frontend das Backend nicht erreichen kann wird eine entsprechende Meldung angezeigt. In diesem Fall muss das Frontend oder das Backend neu gestartet werden.
+Wenn das Frontend das Backend nicht erreichen kann wird eine entsprechende Meldung angezeigt. In diesem Fall muss das Frontend oder das Backend neu gestartet werden. Die IP-Adresse und der Benutzername sollten auch auf korrektheit geprüft werden.
 Wenn die Verbindung erfolgreich ist, wird automatisch der bisherige Chatverlauf geladen und angezeigt. Anschließend kann am unteren Fensterrand eine neue Nachricht eingegeben werden und mit dem Button rechts daneben oder mit der Enter-Taste abgesendet werden. Die Nachricht wird in Echtzeit an alle angebundenen Clients übertragen und angezeigt.  
 
 ## Informationen einer Nachricht todo (algemeines über Chat-Box ausführen, ggf. wie die Speicherung ist)
@@ -167,6 +174,7 @@ In diesem Kapitel wird der Entwicklungsprozess der Web-App beschrieben und dabei
 
 ## Frontend
 ### Tim
+- CSS
 ### Benjamin
 
 ## Backend
@@ -174,37 +182,39 @@ In diesem Kapitel wird der Entwicklungsprozess der Web-App beschrieben und dabei
 ### Tim
 
 # Herausforderungen
-- REST API genügt nicht
-- Networking mehrere Clients auf verschiedenen Geräten
-- Einarbeitung in die verwendeten Technologien
-- Anwendungsprobleme mit Github
+Während der Entwickelung der Web-App sind einige Herausforderungen aufgetreten, welche bewältigt werden mussten, um das Projekt gemäß den Anforderungen umzusetzen. Diese sind im Folgenden beschreiben und die Lösungen werden im nachfolgenden Kapitel „Erfolgsfaktoren“ behandelt.
+Zum einen musste sich zu Beginn der Implementierung, in die noch bis dahin unbekannte Technologie React eingearbeitet werden, zum Beispiel wie eine Web-App mit React aufgebaut ist, und wie Variablen und Funktionen definiert und verwendet werden.
+Weiterhin war dies die anfangs implementierte REST-API, welche zwar eine Kommunikation zwischen Front- und Backend ermöglichte, allerdings nicht in Echtzeit, da sich der angezeigte Chatverlauf nur dann aktualisiert, wenn der Client explizit eine Anfrage an den Server schickt.
+Eine weitere Herausforderung stellte Git dar. Nach dem erstellen der Git-Repositorys begann die gemeinsame Arbeit m Code, doch es traten Probleme beim Pullen und Pushen von Code auf, was die gemeinsame Entwicklung erschwerte. Um weitere mögliche Probleme zu umgehen, wurde die Arbeit mit Git auf ein notwendiges Minimum beschränkt. Somit konnte dennoch gemeinsam am Code gearbeitet werden.
+Als die wahrscheinlich größte Herausforderung erwies sich die Verbindung mehrerer Clients mit dem Server. Die in der Vorlesung implementierte Web-App verwendete den localhost, um Front oder Backend anzusprechen. Für die Chat-Funktionalität zwischen sollten mehreren Clients, welche auf unterschiedlichen Hardware-Geräten laufen, mit dem Server verbunden werden. Diese konnten allerdings nicht auf den localhost zugreifen, was die Verbindung verhinderte.
 
 # Erfolgsfaktoren
-- Frag die KI
-- Viel Einarbeiten und Recherchieren
-- Verwendung von Websockets
-- Erstellen eines lokalen Netzwerks
-- Github alternative
+Um die Web-App dennoch erfolgreich umzusetzen, wurden die oben genannten Herausforderungen größtenteils bewältigt.
+Durch das Auseinandersetzen mit React und dessen unkomplizierte Syntax konnte bereits nach kurzer Einarbeitungszeit in ausreichender Geschwindigkeit funktionsfähiger Code geschrieben werden. Im Internet ließen sich viele Quellen zu verschiedenen Anwendungsfällen finden, was zur Verkürzung der Einarbeitungszeit beitrug.
+Das Problem der mit der REST-API konnte durch die Verwendung von Websockets gelöst werden. Durch diese wird eine durchgehende Verbindung zwischen Client und Server hergestellt, was die Kommunikation in Echtzeit ermöglicht. Der Einbau dieser Technologie in die bereits bestehende Web-App erwies sich nicht als problematisch, da sich Erweiterungen leicht in die Architektur integrieren lassen und ein Teil der Logik wiederverwendet werden konnte.
+Um weitere Probleme mit Git zu umgehen, fand die Arbeit am Code großenteils auf einem Branch statt. Dies erforderte ein hohes Maß an Absprache bezüglich Änderungen, die der andere Entwickler nicht mitbekommt. Anfangs musste ein zweites Repository angelegt werden, da es im ersten zu vielen Problem kam. Die Nutzung eines neuen Repositorys und gute Absprache führten letztendlich zu einer akzeptablen gemeinsamen Arbeit am Code unter der Nutzung von Git.
+Die Herausforderung der Verbindung mehrerer Clients mit dem Server erwies sich als schwieriger zu bewältigen. Nach viel Recherche im Internet gab es Überlegungen den Server auf einem PC laufen zu lassen und über Portfreigabe des angeschlossenen Routers erreichbar zu machen. Durch Brainstorming mit Fachkundigen entstand die Idee ein lokales Netzwerk (Hotspot) mit einem Laptop oder Mobiltelefon aufzusetzen, da die Portfreigabe eines Routers von uns im Netzwerk der FHDW als bürokratisch schwierig empfunden wurde. Durch die Verbindung aller Geräte mit dem lokalen Netzwerk und dem Nutzen dessen IP-Adresse, wurde die Verbindung zwischen den Clients und dem Server möglich. Testen des Systems ergab, dass es sowohl mit Laptops und mit Mobiltelefonen mit iOS oder Android funktioniert. 
 
 # Selbstkritik
 - Absturz bei zu langer Nachricht
 - nur primitives Atdding --> beutzerverwaltung
 - klauen von Identitäten --> echte Verwaltung von benutzern
 - eingriff in Chatlog und datensicherheit
+- Git funktioniert immer noch nicht
+- nr Lokales Netzwerk un wenn server on ist
 
 # Geplante Erweiterungen
 - Emoji-Unterstützung via Picker
 - Nachrichten bearbeiten/löschen
-- Minigames wie Tetris
 - Individuelle Benutzerprofile
 - Einstellungsmöglichkeiten für die Web-App allgemein und das Benutzerprofil
-- @dding (mit User-Directory um @dding möglich zu machen und dabei die Kernfunktionalität beizubehalten) 
+- Atdding stabilier machen (mit User-Directory um Atdding zu ermöglichen und dabei die Kernfunktionalität sicher beizubehalten) 
 
 # Mögliche Erweiterungen
 - Online-Status
-- Profilbild, Nickname
+- Profilbild
 - Upload und Versand von verschiedenen Dateiformaten (z.B. PDFs, Bilder)
-- Schach App
+- Minigames wie Tetris, Schach
 - Accounts mit Login
 - Alternatives speichern des Chatverlaufs (verschlüsselt)
 - KI-Chat

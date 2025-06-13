@@ -51,7 +51,6 @@ function App() {
     if (input.includes('/@')) {
       const indexOfFirstAt = input.indexOf('/@');
       const indexOfFirstSpaceAfterAtString = input.indexOf(' ', indexOfFirstAt);
-      console.log(indexOfFirstAt + '---' + indexOfFirstSpaceAfterAtString)
       addressee = input.substring(indexOfFirstAt, indexOfFirstSpaceAfterAtString)
     }
 

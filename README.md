@@ -139,12 +139,59 @@ Es wird die Verwendung von Visual Studio 2022 empfohlen!
 #### In Visual Studio 2022
 - Das Projekt in Visual Studio 2022 öffnen (z. B. per `.sln`-Datei)
 - Projekt auswählen und mit `F5` oder `Strg + F5` starten
-- Der Server läuft lokal und ist dann unter z. B. [http://localhost:5125](http://localhost:5125)
+- Der Server läuft lokal und ist dann unter z. B. [http://localhost:5125](http://localhost:5125) zu erreichen.
 - Websocket Endpunkt:
 `ws://localhost:5125/chat`
 
 ## Beschreibung der Architektur
+### Models.ChatMessage.cs
 
+Die Klasse `ChatMessage` beschreibt eine einzelne Nachricht im Chat. Sie besteht aus vier Attributen: `Author`, `Message`, `TimeStamp` und `Addressee`. Jede Instanz dieser Klasse entspricht also einer Chatnachricht, wie sie im Chatverlauf verarbeitet und gespeichert wird.
+
+#### Attribute:
+
+- **Author** (`string`):  
+  Der Name der Person, die die Nachricht gesendet hat. Wird z. B. verwendet, um eigene Nachrichten von denen anderer Nutzer zu unterscheiden.
+
+- **Message** (`string`):  
+  Der eigentliche Inhalt der Nachricht.
+
+- **TimeStamp** (`string`):  
+  Der Zeitpunkt, zu dem die Nachricht gesendet wurde.
+
+- **Addressee** (`string`):  
+  Der Empfänger der Nachricht. Standardmäßig wird `"/@alle"` verwendet. Für gezielte Nachrichten an einzelne Nutzer wird `"/@Benutzername"` angegeben.
+
+#### Beispielhafte JSON-Repräsentation:
+
+```json
+{
+  "Author": "Tim",
+  "Message": "Hallo Benjamin",
+  "TimeStamp": "2025-05-30T14:45:31.4378781Z",
+  "Addressee": "/@alle"
+}
+```
+### chatlog.json
+
+Die Datei `chatlog.json` enthält ein JSON-Array aus mehreren `ChatMessage`-Objekten. Sie speichert den vollständigen Chatverlauf und wird bei jeder neuen Nachricht automatisch aktualisiert und erweitert.
+
+### Controllers.WebSocketController.cs
+### Program.cs
+### launchSettings.json
+
+Für den Betrieb des WebSocket-Servers ist insbesondere die `applicationUrl` relevant, da sie die Adresse bestimmt, unter der das Backend erreichbar ist.
+
+Relevante URLs für den lokalen Betrieb:  
+- **HTTP:** `http://localhost:5125`  
+- **HTTPS:** `https://localhost:7101`  
+  (alternativ ebenfalls: `https://localhost:5125`)
+
+Für die WebSocket-Verbindung ergeben sich daraus folgende Adressen:  
+- **WebSocket (unverschlüsselt):** `ws://localhost:5125`  
+- **WebSocket Secure (verschlüsselt):** `wss://localhost:7101` (alternativ auch `wss://localhost:5125`)
+
+Um eine Verbindung zum Backend über WebSocket herzustellen, sollten die `ws://`- oder `wss://`-Adressen verwendet werden.
 ## Beschreibung spezifischerer Funktionalität
 
 ## Versionen

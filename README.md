@@ -111,6 +111,37 @@ Unterhalb der App() Funktion befindet sich abschließend die Methode zum Formati
 # Backend
 
 ## Installationsanweisungen
+### App/Projekt erstellen
+Es wird die Verwendung von Visual Studio 2022 empfohlen!
+#### Voraussetzungen
+- **.NET 8 SDK installieren**  
+  - Bei Verwendung von **Visual Studio 2022** sollte während der Installation die Arbeitslast **"ASP.NET und Webentwicklung"** ausgewählt werden  
+  - Ohne Visual Studio kann das aktuelle [.NET 8 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/8.0) separat heruntergeladen und installiert werden
+#### In Visual Studio 2022
+- Im Startbildschirm Repository klonen auswählen
+- `https://github.com/BXZ521/FHDW-CHAT-Backend` als Repositoryspeicherort auswählen
+- Gewünschten lokalen Speicherpfad auswählen
+    - Optional hierfür vorher ein Verzeichnis anlegen
+- Mit `STRG + 0, STRG + G` das Fenster Git Änderungen aufrufen und zum Branch `bealsc_websockets` wechseln
+- Aktuellste  Änderungen pullen
+#### Alternativ per Git-Befehle
+- Folgendes im gewünschten Verzeichnis ausführen:
+    - Projekt klonen:  
+      `git clone https://github.com/BXZ521/FHDW-CHAT-Backend`
+    - Ins Projektverzeichnis wechseln:  
+      `cd FHDW-CHAT-Backend`
+    - Auf den aktuellen Branch wechseln:  
+      `git checkout bealsc_websockets`
+    - Aktuellen Stand holen:  
+      `git pull`
+### App starten
+
+#### In Visual Studio 2022
+- Das Projekt in Visual Studio 2022 öffnen (z. B. per `.sln`-Datei)
+- Projekt auswählen und mit `F5` oder `Strg + F5` starten
+- Der Server läuft lokal und ist dann unter z. B. [http://localhost:5125](http://localhost:5125)
+- Websocket Endpunkt:
+`ws://localhost:5125/chat`
 
 ## Beschreibung der Architektur
 
@@ -174,9 +205,10 @@ In diesem Kapitel wird der Entwicklungsprozess der Web-App beschrieben und dabei
 
 ## Frontend
 ### Tim
-- CSS
+- CSS (Lightmode)
 ### Benjamin
-
+- CSS (Einführung Suffixes zu kompakter Darkmode Einführung)
+- Einführung der Buttonleiste und Light/ Darkmode Toggle Funktionalität (inklusive Systemstandard initial)
 ## Backend
 ### Benjamin
 ### Tim

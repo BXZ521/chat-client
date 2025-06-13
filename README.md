@@ -258,7 +258,7 @@ Um eine Verbindung zum Backend über WebSocket herzustellen, sollten die `ws://`
 1. Hotspot eines beliebigen Gerätes eröffnen
 2. Frontend- und Backend-Geräte mit diesem Netzwerk verbinden
 3. Die IPv4-Adresse dieses Netzwerks herausfinden (cmd: `ipconfig`)
-4. Diese IPv4 an den entsprechenden Stellen im Frontend (src/config.json, Attribut: ServerAdress) und Backend (Properties/launchSettings.json, Profile: http und https, Attribut: applicationUrl)
+4. Diese IPv4 an den entsprechenden Stellen im Frontend (src/config.json, Attribut: ServerAdress) und Backend (Properties/launchSettings.json, Profile: http und https, Attribut: applicationUrl) eintragen
 5. Frontend und Backend starten und testen
 
 # Bedienungsanleitung

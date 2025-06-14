@@ -1,5 +1,6 @@
 # Links zu den Git-Repositorys
-- Frontend (Chat-Client): [https://github.com/BXZ521/chat-client](https://github.com/BXZ521/chat-client)
+- Frontend (Chat-Client/generell): [https://github.com/BXZ521/chat-client](https://github.com/BXZ521/chat-client)
+- Frontend (Chat-Client/aktiver Branch + ReadMe): [https://github.com/BXZ521/chat-client/tree/tist_frontend](https://github.com/BXZ521/chat-client/tree/tist_frontend)
 - Backend (Chat-Server): [https://github.com/BXZ521/FHDW-CHAT-Backend](https://github.com/BXZ521/FHDW-CHAT-Backend)
 
 # Projektbeschreibung Chat-System
@@ -44,7 +45,7 @@ Unsere Projektidee ist die Entwicklung eines Chat-Systems, bei dem mehrere Clien
 - Nachrichten bearbeiten/löschen
 - Push Notifications bei neuen Nachrichten
  
-## Zusammenhang zur Aufgabenstellung todo (der Satz hört sich komisch an)
+## Zusammenhang zur Aufgabenstellung
 Die Idee entspricht der Anforderung, eine Web-Applikation mit Client-Server-Kommunikation zu entwickeln. Der Fokus liegt auf der Interaktion zwischen mehreren Clients über einen zentralen Server - ein typisches Beispiel für moderne, verteilte Web-Systeme.
  
 ## Eingesetzte Technologien
@@ -78,7 +79,7 @@ Die Idee entspricht der Anforderung, eine Web-Applikation mit Client-Server-Komm
 Für das Frontend der Web-App musste eine Programmiersprache und ein Framework ausgewählt werden. Zum einen sollte etwas Vertrautes benutzen verwendet werden, damit schneller Code geschrieben und dieser leichter verstanden werden kann. Zum anderen sollte eine weitverbreitete Technologie verwendet werden, da es für eine solche große Communities und Dokumentationen gibt. Das in der Vorlesung vorgestellte Framework Flutter war neu und die Syntax war schwer zu verstehen. Daher wurde sich gegen die Verwendung von Flutter entschieden. Letztendlich wurde sich für die Programmiersprache JavaScript in Kombination mit der Bibliothek und Framework React entschieden. In JavaScript gab es bereits gute Vorkenntnisse seitens der Entwickler und React ist eine weitverbreitete Technologie die einerseits neu, aber auch interessant zu lernen war. Da ein Interesse bestand, in diese unbekannte Technologie einzusteigen wurde sich für React entschieden. Zusätzlich wurde die dort verwendete Syntax als verständlicher als die von Flutter empfunden.
 Um die Entwicklungsgeschwindigkeit zu verkürzen, wurde zusätzlich zu JavaScript und React die Laufzeitumgebung Node.js verwendet. Es ermöglicht Codeanpassungen an der GUI direkt im Browser sichtbar zu machen.
 
-## Beschreibung der Architektur todo(unvollständig)
+## Beschreibung der Architektur
 ### index.js
 In der index.js befindet sich das root-element der Web-App, welches die Attribute, die für alle weiteren Komponenten gelten, definiert. In diesem befindet sich das Element <Strictmode>. Dieses ist eine Komponente aus React und hilft während der Entwicklung, Fehler frühzeitig zu entdecken. Die eigentliche Web-App befindet sich wiederum im <Strictmode> Element. Somit enthält dieser Datei keine Logik, aber dennoch ist das gesamte Frontend von ihr abhängig.
 ### config.json
@@ -97,16 +98,39 @@ Als letztes wird die Ansicht definiert, welche angezeigt wird, wenn der Server n
 Unterhalb der App() Funktion befindet sich abschließend die Methode zum Formatieren des DateTime-Formats in ein benutzerfreundlicheres Format (dd.mm.yyyy HH:MM).
 
 ### App.css
-- Style für alle Elemente
-- leicht anpassbar
-- .dark & .light suffixes
+In der App.css werden die Stylings der HTML-Elemente der App.js definiert. Diese Trennung von Struktur der Elemente und Aussehen der Elemente erleichtert die Wartbarkeit und Übersichtlichkeit.
+Die Datei unterteilt sich in folgende Bereiche, für die Definition des Stylings der angegebenen Elemente:
+- **Basisstruktur** für die App und die Menuleiste
+- **Lightmode** um die Elemente in hellen Farben erscheinen zu lassen
+- **Darkmode** um die Elemente in dunklen Farben erscheinen zu lassen
+- **Chat-Blase** für die Chat-Box und die Nachrichten
+- **Eingabe & Button** für die Zeile in der eine Nachricht eingegeben werden kann
+- **Theme-Button** explizit für den Button zum Wechseln des Themes
+- **Fehler-Seite** für die Elemente der der Ansicht, wenn der Server nicht erreichbar ist
+Die Verwendung des .light und .dark Suffixes erleichtert die Anwendung der Stylings im Code und sorgt für eine verständliche Struktur.
 
 ## Beschreibung spezifischerer Funktionalität
 ### Websockets
-### ATdding
-### function formatTime
+Um eine dauerhafte bidirektionale Verbindung mit dem Server herzustellen, wird die WebSocket Klasse aus dem ws-Modul in Node.js verwendet. Auf diese Weise kann mit wenig Zeilen Code der Websocket realisiert werden und mit entsprechenden Funktionen das Verhalten beim Verbindungsauf- und Abbau und das Senden und Empfangen von Nachrichten zu definieren.
+Der Status der Verbindung wird in der Konsole des Browsers ausgegeben. Beim Senden wird das gesamte Message Objekt an den verbundenen WebSocket gesendet. 
 
-## Versionen
+### ATdding
+Das Atdding dient der Adressierung von Nachrichten an einzelne Benutzer. Wie eine Nachricht adressiert werden kann, ist in der Bedienungsanleitung erklärt. Bei dieser Funktionalität handelt es sich jedoch noch nicht vollständig ausgereiftes Feature (Beta-Version)
+Aus technischer Sicht wird beim nach dem Drücken des Senden-Buttons durch den User, wird die eingegebene Nachricht auf das Tag „**/@**“ untersucht. Wenn keines gefunden wurde, wird das Tag „**/@alle**“ der Nachricht als Addressee mitgegeben. Ansonsten wird das an /@ anhängende Wort (der Benutzername des Adressaten) herausgefiltert und dieses, Nachricht mitgegeben.
+Beim Anzeigen der Nachrichten im Chat-Fenster werden für jeden Nutzer nur die Nachrichten angezeigt, welche:
+- Er selbst verfasst hat
+- Das tag „**/@alle**“ haben
+- Den eigenen Benutzernamen als Tag haben (**/@meinBenutzername**)
+
+### Funktion formatTime
+Diese Funktion dient der Umformatierung des TimeStamps in ein benutzerfreundlicheres Format.
+Sie erhält als Parameter den TimeSpamp einer Nachricht und ermittelt daraus die einzelnen Bestandteile:
+- Jahr (year)
+- Monat (month)
+- Tag (day)
+- Uhrzeit (clocktime)
+Anschließend werden diese Werte zu einem String formatiert (z.B. 30.05.2025 14:45) und zurückgegeben.
+
 
 # Backend
 
@@ -123,7 +147,7 @@ Es wird die Verwendung von Visual Studio 2022 empfohlen!
 - Gewünschten lokalen Speicherpfad auswählen
     - Optional hierfür vorher ein Verzeichnis anlegen
 - Mit `STRG + 0, STRG + G` das Fenster Git Änderungen aufrufen und zum Branch `bealsc_websockets` wechseln
-- Aktuellste  Änderungen pullen
+- Aktuellste Änderungen pullen
 #### Alternativ per Git-Befehle
 - Folgendes im gewünschten Verzeichnis ausführen:
     - Projekt klonen:  
@@ -191,8 +215,8 @@ Die Datei `chatlog.json` enthält ein JSON-Array aus mehreren `ChatMessage`-Obje
 ### Controllers/WebSocketController.cs
 
 Die Datei `WebSocketController.cs` ist das Herzstück des Backends.
- Sie implementiert die gesamte WebSocket-Kommunikation des Backends. Sie verwaltet aktive Verbindungen, verarbeitet eingehende Nachrichten und sorgt für deren Verteilung an alle verbundenen Clients.
- Außerdem wird der Chatverlauf dauerhaft in einer JSON-Datei gespeichert.
+Sie implementiert die gesamte WebSocket-Kommunikation des Backends. Sie verwaltet aktive Verbindungen, verarbeitet eingehende Nachrichten und sorgt für deren Verteilung an alle verbundenen Clients.
+Außerdem wird der Chatverlauf dauerhaft in einer JSON-Datei gespeichert.
 
 #### Verbindungsaufbau
 
@@ -364,7 +388,6 @@ await Broadcast(outJson);
 
 * Der komplette aktualisierte Chatverlauf wird serialisiert.
 * Die Methode `Broadcast` sendet die Daten an alle aktiven WebSocket-Clients.
-## Versionen
 
 # Lokales Netzwerk aufsetzen
 1. Hotspot eines beliebigen Gerätes eröffnen
@@ -385,7 +408,8 @@ Jede angezeigte Nachricht enthält folgende Informationen:
 - Autor (links oben)
 - Zeitstempel (rechts oben)
 - Inhalt der Nachricht (zentral)
-Selbstverfasste Nachrichten werden rechtsbündig und alle anderen linksbündig dargestellt und zusätzlich farblich hervorgehoben. 
+Selbstverfasste Nachrichten werden rechtsbündig und alle anderen linksbündig dargestellt und zusätzlich farblich hervorgehoben.
+Eine Nachricht, die an jemanden adressiert wurde, wird nur dieser Person und dem Verfasser angezeigt.
 Der Chat erinnert damit an das Design und Verhalten von anderen weit verbreiteten Chat-Systemen.
 
 ## Menuleiste oben
@@ -403,45 +427,60 @@ Nach dem Verfassen und Absenden einer Nachricht wird diese in Echtzeit über den
 Eine weitere Eigenschaft der Web-App ist ein Responsive Webdesign. Dieses erlaubt es die Web-App auch Bildschirme mit unterschiedlichen Größen zu skalieren. Somit könnte die Web-App von der GUI her auch auf einem Mobilgerät bedient werden.
 Zusätzlich gibt es die Funktion eines primitiven Adressierens von Nachrichten an bestimmte Benutzer. Die Web-App unterstützt aktuell einen Chatraum, in dem alle Nachrichten wie bei einem Hub an alle weitergeleitet werden und für alle sichtbar sind. Mit dem Tag „/@“ und einem ohne Leerzeichen anschließendem Benutzernamen werden Nachrichten in diesem Chatraum nur an einen spezifischen Nutzer adressiert, so dass nur dieser die Nachricht angezeigt bekommt. Dieses Tag wird in dasselbe Eingabefeld geschrieben, wie die Nachricht. Dabei ist es nicht relevant, an welcher Stelle das Tag kann in der Nachricht steht. Es könnte sich am Anfang, in der Mitte oder am Ende befinden. Wenn eine Nachricht kein Tag beinhaltet, wird diese wie gewöhnlich für alle Benutzer sichtbar.
 Darüber hinaus ist der Chat in der Lage mit mehreren Clients gleichzeitig zu kommunizieren, so dass dieser ohne viel Auffand aus einem Privatchat zu einem Gruppenchat skaliert werden kann. Das Verhalten bleibt dabei gleich, nur dass jetzt am linken Rand des Chat-Fensters Nachrichten von mehr als einem Nutzer angezeigt werden.
-In dem Fall, dass das Backend nicht erreichbar ist, wird statt dem Chat ein entsprechender Hinweis angezeigt. Zusätzlich gibt es einen Hilfe-Link der zur Antwort auf das Leben, das Universum und den ganzen Rest führt und Das Dino-Game von Chrome, welches wie gewohnt mit der Leertaste bedient werden kann, um sich die Langeweile zu vertreiben.
-
-# Entwicklungsprozess
-In diesem Kapitel wird der Entwicklungsprozess der Web-App beschrieben und dabei auf Entscheidungen und deren Folgen eingegangen.
-
-## Implementierung
-
-## Arbeit mit Github und Absprache
-## Begin mit Backend
-## Testen verschiedener Technologien, warum haben wir diese verwendet?
-### REST API -> Websockets
-### Flutter -> React
-### Internet -> LAN-Hotspot
-## Chat-Design
+In dem Fall, dass das Backend nicht erreichbar ist, wird statt dem Chat ein entsprechender Hinweis angezeigt. Zusätzlich gibt es einen Hilfe-Link der zur Antwort auf das Leben, das Universum und den ganzen Rest führt und das Dino-Game von Chrome, welches wie gewohnt mit der Leertaste bedient werden kann, um sich die Langeweile zu vertreiben.
 
 # Aufgabenverteilung innerhalb des Entwicklerteams
 
 ## Frontend
 ### Tim
 - CSS (Lightmode)
+- Design der Chat-Box
+- Timeformatting
+- Fehler-Seite (HilfeLink- DinoGame)
+- Cleanup
+- Atdding
+- Emojipicker
+- Readme
 ### Benjamin
 - CSS (Einführung Suffixes zu kompakter Darkmode Einführung)
+- Websockets alles
 - Einführung der Buttonleiste und Light/ Darkmode Toggle Funktionalität (inklusive Systemstandard initial)
+- Autoscroll
+- Cleanup
+- Readme
 ## Backend
 ### Benjamin
+- Chatlog read/save
+- Broadcast 
+- WScontroller
+- ChatMessage Definition (Author, Message, timeSamp)
+- Cleanup
 ### Tim
+- Netzwerk aufsetzen
+- Nötige Anpassung für Hotspot (verbindunf nderer greräae)
+- Definition Cors-Policy, Einbindung Swagger
+- Chatmessage (Addresse)
 
 # Herausforderungen
 Während der Entwickelung der Web-App sind einige Herausforderungen aufgetreten, welche bewältigt werden mussten, um das Projekt gemäß den Anforderungen umzusetzen. Diese sind im Folgenden beschreiben und die Lösungen werden im nachfolgenden Kapitel „Erfolgsfaktoren“ behandelt.
+
 Zum einen musste sich zu Beginn der Implementierung, in die noch bis dahin unbekannte Technologie React eingearbeitet werden, zum Beispiel wie eine Web-App mit React aufgebaut ist, und wie Variablen und Funktionen definiert und verwendet werden.
+
 Weiterhin war dies die anfangs implementierte REST-API, welche zwar eine Kommunikation zwischen Front- und Backend ermöglichte, allerdings nicht in Echtzeit, da sich der angezeigte Chatverlauf nur dann aktualisiert, wenn der Client explizit eine Anfrage an den Server schickt.
+
 Eine weitere Herausforderung stellte Git dar. Nach dem erstellen der Git-Repositorys begann die gemeinsame Arbeit m Code, doch es traten Probleme beim Pullen und Pushen von Code auf, was die gemeinsame Entwicklung erschwerte. Um weitere mögliche Probleme zu umgehen, wurde die Arbeit mit Git auf ein notwendiges Minimum beschränkt. Somit konnte dennoch gemeinsam am Code gearbeitet werden.
+
 Als die wahrscheinlich größte Herausforderung erwies sich die Verbindung mehrerer Clients mit dem Server. Die in der Vorlesung implementierte Web-App verwendete den localhost, um Front oder Backend anzusprechen. Für die Chat-Funktionalität zwischen sollten mehreren Clients, welche auf unterschiedlichen Hardware-Geräten laufen, mit dem Server verbunden werden. Diese konnten allerdings nicht auf den localhost zugreifen, was die Verbindung verhinderte.
 
 # Erfolgsfaktoren
 Um die Web-App dennoch erfolgreich umzusetzen, wurden die oben genannten Herausforderungen größtenteils bewältigt.
+
 Durch das Auseinandersetzen mit React und dessen unkomplizierte Syntax konnte bereits nach kurzer Einarbeitungszeit in ausreichender Geschwindigkeit funktionsfähiger Code geschrieben werden. Im Internet ließen sich viele Quellen zu verschiedenen Anwendungsfällen finden, was zur Verkürzung der Einarbeitungszeit beitrug.
+
 Das Problem der mit der REST-API konnte durch die Verwendung von Websockets gelöst werden. Durch diese wird eine durchgehende Verbindung zwischen Client und Server hergestellt, was die Kommunikation in Echtzeit ermöglicht. Der Einbau dieser Technologie in die bereits bestehende Web-App erwies sich nicht als problematisch, da sich Erweiterungen leicht in die Architektur integrieren lassen und ein Teil der Logik wiederverwendet werden konnte.
+
 Um weitere Probleme mit Git zu umgehen, fand die Arbeit am Code großenteils auf einem Branch statt. Dies erforderte ein hohes Maß an Absprache bezüglich Änderungen, die der andere Entwickler nicht mitbekommt. Anfangs musste ein zweites Repository angelegt werden, da es im ersten zu vielen Problem kam. Die Nutzung eines neuen Repositorys und gute Absprache führten letztendlich zu einer akzeptablen gemeinsamen Arbeit am Code unter der Nutzung von Git.
+
 Die Herausforderung der Verbindung mehrerer Clients mit dem Server erwies sich als schwieriger zu bewältigen. Nach viel Recherche im Internet gab es Überlegungen den Server auf einem PC laufen zu lassen und über Portfreigabe des angeschlossenen Routers erreichbar zu machen. Durch Brainstorming mit Fachkundigen entstand die Idee ein lokales Netzwerk (Hotspot) mit einem Laptop oder Mobiltelefon aufzusetzen, da die Portfreigabe eines Routers von uns im Netzwerk der FHDW als bürokratisch schwierig empfunden wurde. Durch die Verbindung aller Geräte mit dem lokalen Netzwerk und dem Nutzen dessen IP-Adresse, wurde die Verbindung zwischen den Clients und dem Server möglich. Testen des Systems ergab, dass es sowohl mit Laptops und mit Mobiltelefonen mit iOS oder Android funktioniert. 
 
 # Selbstkritik

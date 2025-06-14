@@ -78,6 +78,24 @@ function App() {
     localStorage.setItem('darkMode', darkMode);
   }, [darkMode]);
 
+  // Close Emoji-Picker with Escape
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        setShowPicker(false);
+      }
+    };
+
+    // Eventlistenerhandling
+    if (showPicker) {
+      document.addEventListener('keydown', handleKeyDown);
+    } else {
+      document.removeEventListener('keydown', handleKeyDown);
+    }
+
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [showPicker]);
+
   return (
     <div className={`app ${darkMode ? 'dark' : 'light'}`}>
       {connected ?
@@ -117,13 +135,13 @@ function App() {
           </div>
 
           <div className='message-container'>
-             <button
-                className='emoji-button'
-                onClick={() => setShowPicker((val) => !val)}
-                type="button"
-              >
-                ☺
-              </button>
+            <button
+              className='emoji-button'
+              onClick={() => setShowPicker((val) => !val)}
+              type="button"
+            >
+              ☺
+            </button>
             <input
               type="text"
               value={input}
@@ -134,17 +152,17 @@ function App() {
             />
             <button onClick={sendMessage} className='button-send'><MdSend /></button>
           </div>
-            {showPicker && (
-              <div className='emoji-picker'>
-                <EmojiPicker
-                  onEmojiClick={(emojiData) => {
-                    setInput((prev) => prev + emojiData.emoji);
-                    setShowPicker(false); // Picker nach Auswahl schließen
-                  }}
-                  theme={darkMode ? 'dark' : 'light'}
-                />
-              </div>
-            )}
+          {showPicker && (
+            <div className='emoji-picker'>
+              <EmojiPicker
+                onEmojiClick={(emojiData) => {
+                  setInput((prev) => prev + emojiData.emoji);
+                  setShowPicker(false); // Picker nach Auswahl schließen
+                }}
+                theme={darkMode ? 'dark' : 'light'}
+              />
+            </div>
+          )}
         </div>
         :
         <div className='error-container'>
@@ -173,7 +191,7 @@ function formatTime(time) {
   const month = time.substring(5, 7);
   const day = time.substring(8, 10);
   const clocktime = time.substring(11, 16);
-  return '' + day + '.' + month + '.' + year + ' ' + clocktime;
+  return `${day}.${month}.${year} ${clocktime}`;
 }
 
 export default App;

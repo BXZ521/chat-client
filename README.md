@@ -77,15 +77,15 @@ Die Idee entspricht der Anforderung, eine Web-Applikation mit Client-Server-Komm
 - Läuft im Browser unter der URL: [http://localhost:3000](http://localhost:3000)
 
 ## Beschreibung der Technologie
-Für das Frontend der Web-App musste eine Programmiersprache und ein Framework ausgewählt werden. Zum einen sollte etwas Vertrautes benutzen verwendet werden, damit schneller Code geschrieben und dieser leichter verstanden werden kann. Zum anderen sollte eine weitverbreitete Technologie verwendet werden, da es für eine solche große Communities und Dokumentationen gibt. Das in der Vorlesung vorgestellte Framework Flutter war neu und die Syntax war schwer zu verstehen. Daher wurde sich gegen die Verwendung von Flutter entschieden.
+Für das Frontend der Web-App musste eine Programmiersprache und ein Framework ausgewählt werden. Zum einen sollte etwas Vertrautes  verwendet werden, damit schneller Code geschrieben und dieser leichter verstanden werden kann. Zum anderen sollte eine weitverbreitete Technologie verwendet werden, da es für eine solche große Communities und Dokumentationen gibt. Das in der Vorlesung vorgestellte Framework Flutter war neu und die Syntax war schwer zu verstehen. Daher wurde sich gegen die Verwendung von Flutter entschieden.
 
-Letztendlich wurde sich für die Programmiersprache **JavaScript** in Kombination mit der Bibliothek und Framework **React** entschieden. In JavaScript gab es bereits gute Vorkenntnisse seitens der Entwickler und React ist eine weitverbreitete Technologie die einerseits neu, aber auch interessant zu lernen war. Da ein Interesse bestand, in diese unbekannte Technologie einzusteigen wurde sich für React entschieden. Zusätzlich wurde die dort verwendete Syntax als verständlicher als die von Flutter empfunden.
+Letztendlich wurde sich für die Programmiersprache **JavaScript** in Kombination mit der Bibliothek und dem Framework **React** entschieden. In JavaScript gab es bereits gute Vorkenntnisse seitens der Entwickler und React ist eine weitverbreitete Technologie die einerseits neu, aber auch interessant zu lernen war. Da ein Interesse bestand, in diese unbekannte Technologie einzusteigen wurde sich für React entschieden. Zusätzlich wurde die dort verwendete Syntax als verständlicher als die von Flutter empfunden.
 
 Um die Entwicklungsgeschwindigkeit zu verkürzen, wurde zusätzlich zu JavaScript und React die Laufzeitumgebung **Node.js** verwendet. Es ermöglicht Codeanpassungen an der GUI direkt im Browser sichtbar zu machen.
 
 ## Beschreibung der Architektur
 ### index.js
-In der index.js befindet sich das root-element der Web-App, welches die Attribute, die für alle weiteren Komponenten gelten, definiert. In diesem befindet sich das Element **<Strictmode>**. Dieses ist eine Komponente aus React und hilft während der Entwicklung, Fehler frühzeitig zu entdecken. Die eigentliche Web-App befindet sich wiederum im **<Strictmode>** Element. Somit enthält dieser Datei keine Logik, aber dennoch ist das gesamte Frontend von ihr abhängig.
+In der index.js befindet sich das root-element der Web-App, welches die Attribute, die für alle weiteren Komponenten gelten, definiert. In diesem befindet sich das Element **\<Strictmode>**. Dieses ist eine Komponente aus React und hilft während der Entwicklung, Fehler frühzeitig zu entdecken. Die eigentliche Web-App befindet sich wiederum im **\<Strictmode>** Element. Somit enthält dieser Datei keine Logik, aber dennoch ist das gesamte Frontend von ihr abhängig.
 ### config.json
 Die config.json ist eine Konfigurationsdatei, in der Parameter definiert werden, die sich je nach Benutzer oder Netzwerk ändern können. Aktuell sind dort als Parameter der Benutzername „**Author**“ und die IP-Adresse „**ServerAddress**“, unter welcher das Backend erreichbar ist enthalten.
 ### App.js
@@ -116,7 +116,8 @@ Die Datei unterteilt sich in folgende Bereiche, für die Definition des Stylings
 - **Chat-Blase** für die Chat-Box und die Nachrichten
 - **Eingabe & Button** für die Zeile in der eine Nachricht eingegeben werden kann
 - **Theme-Button** explizit für den Button zum Wechseln des Themes
-- **Fehler-Seite** für die Elemente der der Ansicht, wenn der Server nicht erreichbar ist
+- **Fehler-Seite** für die Elemente der der Ansicht, wenn der Server nicht erreichbar ist.
+
 Die Verwendung des .light und .dark Suffixes erleichtert die Anwendung der Stylings im Code und sorgt für eine verständliche Struktur.
 
 ## Beschreibung spezifischerer Funktionalität
@@ -127,9 +128,9 @@ Der Client verbindet sich automatisch mit dem Server.
 
 ### Atdding
 Das Atdding dient der Adressierung von Nachrichten an einzelne Benutzer. Wie eine Nachricht adressiert werden kann, ist in der Bedienungsanleitung erklärt. Bei dieser Funktionalität handelt es sich jedoch noch nicht vollständig ausgereiftes Feature (Beta-Version)
-Aus technischer Sicht wird beim nach dem Drücken des Senden-Buttons durch den User, wird die eingegebene Nachricht auf das Tag „**/@**“ untersucht. Wenn keines gefunden wurde, wird das Tag „**/@alle**“ der Nachricht als Addressee mitgegeben. Ansonsten wird das an /@ anhängende Wort (der Benutzername des Adressaten) herausgefiltert und dieses, Nachricht mitgegeben.
+Aus technischer Sicht wird beim nach dem Drücken des Senden-Buttons durch den User, wird die eingegebene Nachricht auf das Tag „**/@**“ untersucht. Wenn keines gefunden wurde, wird das Tag „**/@alle**“ der Nachricht als Addressee mitgegeben. Ansonsten wird das an /@ anhängende Wort (der Benutzername des Adressaten) herausgefiltert und dieses der Nachricht mitgegeben.
 Beim Anzeigen der Nachrichten im Chat-Fenster werden für jeden Nutzer nur die Nachrichten angezeigt, welche:
-- Er selbst verfasst hat
+- Der Nutzer entweder selbst verfasst hat
 - Das tag „**/@alle**“ haben
 - Den eigenen Benutzernamen als Tag haben (**/@meinBenutzername**)
 
@@ -149,10 +150,10 @@ Nach dem Laden des Chatverlaufs oder dem Erhalt einer neuen Nachricht wird autom
 Eine weitere Eigenschaft der Web-App ist ein Responsive Webdesign. Dieses erlaubt es die Web-App auch Bildschirme mit unterschiedlichen Größen zu skalieren. Somit könnte die Web-App von der GUI her auch auf einem Mobilgerät bedient werden.
 
 ### Fehler-Seite
-In dem Fall, dass das Backend nicht erreichbar ist, wird statt dem Chat ein entsprechender Hinweis angezeigt. Zusätzlich gibt es einen Hilfe-Link der zur Antwort auf das Leben, das Universum und den ganzen Rest führt und das Dino-Game von Chrome, welches wie gewohnt mit der Leertaste bedient werden kann, um sich die Langeweile zu vertreiben.
+In dem Fall, dass das Backend nicht erreichbar ist, wird statt dem Chat ein entsprechender Hinweis angezeigt. Zusätzlich gibt es einen Hilfe-Link der zur Antwort auf das Leben, das Universum und den ganzen Rest führt und das Dino-Game von Chrome, welches wie gewohnt mit der Leertaste und Pfeiltaste nach unten bedient werden kann, um sich die Langeweile zu vertreiben.
 
 ### EmojiPicker
-Emojis könnten ohne Implementierungsaufwand mittels des Browsers oder der Tastenkombination `Windows + Punkt` eingefügt werden. Um diese Funktionalität für Benutzer intuitiver zu gestalten, wurde ein Emojipicker importiert, welche das Aussehen der WhatsApp-Emojis besitzen.
+Emojis könnten ohne Implementierungsaufwand mittels des Browsers oder der Tastenkombination `Windows + Punkt` eingefügt werden. Um diese Funktionalität für Benutzer intuitiver zu gestalten, wurde ein Emojipicker importiert, wessen Emojis das Aussehen der WhatsApp-Emojis besitzen.
 
 # Backend
 
@@ -432,24 +433,25 @@ Jede angezeigte Nachricht enthält folgende Informationen:
 - **Zeitstempel** (rechts oben)
 - **Inhalt** der Nachricht (zentral)
 
-Selbstverfasste Nachrichten werden rechtsbündig und alle anderen linksbündig dargestellt und zusätzlich farblich hervorgehoben.
-Eine Nachricht, die an jemanden adressiert wurde, wird nur dieser Person und dem Verfasser angezeigt.
-Emojis können mit dem entsprechenden Button unten links in eine Nachricht eingefügt werden. Der Emojipicker kann mit `Escape` geschlossen werden.
-Der Chat erinnert damit an das Design und Verhalten von anderen weit verbreiteten Chat-Systemen.
-
 ## Menuleiste oben
 Am oberen Rand des Fensters befindet sich eine Menuleiste.
 Dort liegen sich von links nach rechts:
 - Ein Button, mit dem vom Light- in den Darkmode (Theme) und zurück gewechselt werden kann. Das eingestellte Theme bleibt beim Neuladen der Seite bestehen.
-Wenn anfangs noch kein Theme ausgewählt wurde, wird das aktuell verwendete Theme von Windows übernommen.
+Wenn anfangs noch kein Theme ausgewählt wurde, wird, wenn bestehend, das aktuell verwendete Theme vom Windows-System übernommen.
 - Ein Einstellungen-Button der bislang nur ein Popup erscheinen lässt. Zukünftig können dort die Einstellungen der App angepasst werden.
 - Ein Profil-Button der bislang nur ein Popup mit dem aktuellen Benutzernamen erscheinen lässt. Zukünftig können dort die Einstellungen des Profils angepasst werden.
-Desweiteren besteht in dieser Menuleiste die Möglichkeit einige der oben genannten Erweiterungen und Weitere zu integrieren.
+Desweiteren besteht in dieser Menuleiste die Möglichkeit einige der oben genannten Erweiterungen und Weiteres zu integrieren.
 
 ## Atdding
 Die Web-App bietet die Funktion eines primitiven Adressierens von Nachrichten an bestimmte Benutzer. Sie unterstützt aktuell einen Chatraum, in dem alle Nachrichten wie bei einem Hub an alle weitergeleitet werden und für alle sichtbar sind.
 
 Mit dem Tag „**/@**“ und einem ohne Leerzeichen anschließendem Benutzernamen werden Nachrichten in diesem Chatraum nur an einen spezifischen Nutzer adressiert, so dass nur dieser die Nachricht angezeigt bekommt. Dieses Tag wird in dasselbe Eingabefeld geschrieben, wie die Nachricht. Dabei ist es nicht relevant, an welcher Stelle das Tag kann in der Nachricht steht. Es könnte sich am Anfang, in der Mitte oder am Ende befinden. Wenn eine Nachricht kein Tag beinhaltet, wird diese wie gewöhnlich für alle Benutzer sichtbar. Ein Beispiel Tag wäre: **/@Tim**
+
+## Sonstiges Layout und Bedienung
+Selbstverfasste Nachrichten werden rechtsbündig und alle anderen linksbündig dargestellt und zusätzlich farblich hervorgehoben.
+Eine Nachricht, die an jemanden adressiert wurde, wird nur dieser Person und dem Verfasser angezeigt.
+Emojis können mit dem entsprechenden Button unten links in eine Nachricht eingefügt werden. Der Emojipicker kann mit `Escape` geschlossen werden.
+Der Chat erinnert damit an das Design und Verhalten von anderen weit verbreiteten Chat-Systemen.
 
 # Aufgabenverteilung innerhalb des Entwicklerteams
 
@@ -465,7 +467,7 @@ Mit dem Tag „**/@**“ und einem ohne Leerzeichen anschließendem Benutzername
 - 50% der ReadMe
 ### Benjamin
 - CSS (Einführung Suffixes zu kompakter Darkmode Einführung)
-- Websockets alles
+- Websockets Anbindung und Core-Chat (senden-Funktion)
 - Einführung der Buttonleiste und Light/ Darkmode Toggle Funktionalität (inklusive Systemstandard initial)
 - Autoscroll
 - Cleanup
@@ -473,8 +475,7 @@ Mit dem Tag „**/@**“ und einem ohne Leerzeichen anschließendem Benutzername
 ## Backend
 ### Benjamin
 - Chatlog read/save
-- Broadcast 
-- WScontroller
+- WebSocketController (ReceiveLoop, Broadcasting, Speichern im Log, etc.)
 - ChatMessage Definition (Author, Message, timeSamp)
 - Cleanup
 ### Tim
@@ -488,9 +489,9 @@ Während der Entwickelung der Web-App sind einige Herausforderungen aufgetreten,
 
 - Zum einen musste sich zu Beginn der Implementierung, in die noch bis dahin unbekannte **Technologie** React eingearbeitet werden, zum Beispiel wie eine Web-App mit React aufgebaut ist, und wie Variablen und Funktionen definiert und verwendet werden.
 
-- Weiterhin war dies die anfangs implementierte REST-API, welche zwar eine **Kommunikation zwischen Front- und Backend** ermöglichte, allerdings nicht in Echtzeit, da sich der angezeigte Chatverlauf nur dann aktualisiert, wenn der Client explizit eine Anfrage an den Server schickt.
+- Weiterhin war die erste Implementierung des Backends eine REST-API, welche zwar eine **Kommunikation zwischen Front- und Backend** ermöglichte, allerdings nicht in Echtzeit oder beidseitig, da sich der angezeigte Chatverlauf nur dann aktualisiert, wenn der Client explizit eine Anfrage an den Server schickt.
 
-- Eine weitere Herausforderung stellte **Git** dar. Nach dem erstellen der Git-Repositorys begann die gemeinsame Arbeit m Code, doch es traten Probleme beim Pullen und Pushen von Code auf, was die gemeinsame Entwicklung erschwerte. Um weitere mögliche Probleme zu umgehen, wurde die Arbeit mit Git auf ein notwendiges Minimum beschränkt. Somit konnte dennoch gemeinsam am Code gearbeitet werden.
+- Eine weitere Herausforderung stellten **Git** & **Github** dar. Nach dem erstellen der Github-Repositorys begann die gemeinsame Arbeit am Code, doch es traten Probleme beim Pullen und Pushen von Code auf, was die gemeinsame Entwicklung erschwerte. Um weitere mögliche Probleme zu umgehen, wurde die Arbeit mit Github auf ein notwendiges Minimum beschränkt. Somit konnte dennoch gemeinsam am Code gearbeitet werden.
 
 - Als die wahrscheinlich größte Herausforderung erwies sich die **Verbindung mehrerer Clients mit dem Server**. Die in der Vorlesung implementierte Web-App verwendete den localhost, um Front oder Backend anzusprechen. Für die Chat-Funktionalität zwischen sollten mehreren Clients, welche auf unterschiedlichen Hardware-Geräten laufen, mit dem Server verbunden werden. Diese konnten allerdings nicht auf den localhost zugreifen, was die Verbindung verhinderte.
 
@@ -501,16 +502,16 @@ Um die Web-App dennoch erfolgreich umzusetzen, wurden die oben genannten Herausf
 
 - Das Problem der mit der REST-API konnte durch die Verwendung von **Websockets** gelöst werden. Durch diese wird eine durchgehende Verbindung zwischen Client und Server hergestellt, was die Kommunikation in Echtzeit ermöglicht. Der Einbau dieser Technologie in die bereits bestehende Web-App erwies sich nicht als problematisch, da sich Erweiterungen leicht in die Architektur integrieren lassen und ein Teil der Logik wiederverwendet werden konnte.
 
-- Um weitere Probleme mit Git zu umgehen, fand die Arbeit am Code großenteils auf einem Branch statt. Dies erforderte ein hohes Maß an **Absprache** bezüglich Änderungen, die der andere Entwickler nicht mitbekommt. Anfangs musste ein zweites Repository angelegt werden, da es im ersten zu vielen Problem kam. Die Nutzung eines neuen Repositorys und gute Absprache führten letztendlich zu einer akzeptablen gemeinsamen Arbeit am Code unter der Nutzung von Git.
+- Um weitere Probleme mit Gihubt zu umgehen, fand die Arbeit am Code großenteils auf einem Branch statt. Dies erforderte ein hohes Maß an **Absprache** bezüglich Änderungen, die der andere Entwickler nicht mitbekommt. Anfangs musste ein zweites Repository angelegt werden, da es im ersten zu vielen Problem kam. Die Nutzung eines neuen Repositorys und gute Absprache führten letztendlich zu einer akzeptablen gemeinsamen Arbeit am Code unter der Nutzung von Github.
 
 - Die Herausforderung der Verbindung mehrerer Clients mit dem Server erwies sich als schwieriger zu bewältigen. Nach viel Recherche im Internet gab es Überlegungen den Server auf einem PC laufen zu lassen und über Portfreigabe des angeschlossenen Routers erreichbar zu machen. Durch Brainstorming mit Fachkundigen entstand die Idee ein **lokales Netzwerk** (Hotspot) mit einem Laptop oder Mobiltelefon aufzusetzen, da die Portfreigabe eines Routers von uns im Netzwerk der FHDW als bürokratisch schwierig empfunden wurde. Durch die Verbindung aller Geräte mit dem lokalen Netzwerk und dem Nutzen dessen IP-Adresse, wurde die Verbindung zwischen den Clients und dem Server möglich. Testen des Systems ergab, dass es sowohl mit Laptops und mit Mobiltelefonen mit iOS oder Android funktioniert. 
 
 # Kritikpunkte an der aktuellen Funktionalität
-- Das Senden sehr langer Nachrichten ist nicht möglich
+- Das Senden sehr langer Nachrichten ist nicht  möglich
 - Eine Benutzerverwaltung würde das Atdding stabilisieren und das Annehmen anderer Identitäten eines Benutzers verhindern
-- Die App läuft aus Kostengründen nur in einem lokalen Netzwerk und nur wenn der zentrale Server erreichbar ist
+- Die App läuft aus Kostengründen nur in einem lokalen Netzwerk und nur wenn der zentrale Server erreichbar ist (sollte jedoch mit geringen Änderungen auch auf z.B. einem Azure Container laufen.)
 - Der Chatlog ist unzureichend gesichert, da der Serveradministrator diesen offen einsehen und manipulieren kann
-- Das Aussehen der Emojis verändert sich beim Einfügen in eine Nachricht und der Emojipicker weist eine zu lange Ladezeit auf
+- Das Aussehen der Emojis verändert sich beim Einfügen in eine Nachricht und der Emojipicker weist eine zu lange Ladezeit auf. (Unterschiedliche Emoji-Fonts)
 
 Einige dieser Kritikpunkte sind bereits in den geplanten Erweiterungen enthalten und sollen umgesetzt werden.
 

@@ -486,24 +486,25 @@ Die Herausforderung der Verbindung mehrerer Clients mit dem Server erwies sich a
 # Selbstkritik
 - Absturz bei zu langer Nachricht
 - nur primitives Atdding --> beutzerverwaltung
-- klauen von Identitäten --> echte Verwaltung von benutzern
-- eingriff in Chatlog und datensicherheit
-- Git funktioniert immer noch nicht
-- nr Lokales Netzwerk un wenn server on ist
+- klauen von Identitäten --> echte Verwaltung von benutzern --> siehe erweiterung
+- eingriff in Chatlog und datensicherheit --> nur Backend Verschlüsselung wäre gut
+- suboptimale Git-Nutzung
+- die App funktioniert nur wenn Lokales Netzwerk und wenn server online ist Kritik an der App --> liegt am kostensparen
+- Emojipicker unpassende Emojies (anderer Emoji Font) und lädt etwas langsahm --> siehe erweiterung
 
 # Geplante Erweiterungen
-- Emoji-Unterstützung via Picker
+- verbesserung Emoji-Unterstützung via Picker
 - Nachrichten bearbeiten/löschen
-- Individuelle Benutzerprofile
-- Einstellungsmöglichkeiten für die Web-App allgemein und das Benutzerprofil
+- Individuelle Benutzerprofile/ Benutzerverwaltung
+- Einstellungsmöglichkeiten für die Web-App allgemein
 - Atdding stabilier machen (mit User-Directory um Atdding zu ermöglichen und dabei die Kernfunktionalität sicher beizubehalten) 
 
 # Mögliche Erweiterungen
 - Online-Status
-- Profilbild
 - Upload und Versand von verschiedenen Dateiformaten (z.B. PDFs, Bilder)
-- Minigames wie Tetris, Schach
-- Accounts mit Login
+- Minigames wie Tetris, Schach.
+	- Multiplayer games im Chat
 - Alternatives speichern des Chatverlaufs (verschlüsselt)
+- Sicherheit
 - KI-Chat
 - Hintergrund-Bild des Chat-Fensters personalisieren
